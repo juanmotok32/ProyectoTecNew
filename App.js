@@ -1,20 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import LoginScreen from './screens/LoginScreen.js';
+import HomeScreen from './screens/HomeScreen.js';
+import AgregarPostScreen from './screens/AgregarPostScreen.js';
+import { PostProvider } from './context/PostContext.js';
+import DetallePostScreen from './screens/DetallePostScreen.js';
+import FavoritosScreen from './screens/FavoritosScreen.js'
+import PerfilScreen from './screens/PerfilScreen.js'
+
+const Stack = createStackNavigator();
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    return (
+      <PostProvider>
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="Home">
+                <Stack.Screen name="LoginScreen" component={LoginScreen} />
+                <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name='CrearPost' component={AgregarPostScreen} />
+                <Stack.Screen name='DetallePost' component={DetallePostScreen} />
+                <Stack.Screen name= 'FavoritosScreen' component={FavoritosScreen}/>
+                <Stack.Screen name= 'PerfilScreen' component={PerfilScreen}/>
+            </Stack.Navigator>
+        </NavigationContainer>
+      </PostProvider>
+    );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
