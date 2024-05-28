@@ -1,23 +1,23 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext} from 'react';
 import { View, StyleSheet, FlatList, Button, TouchableOpacity } from 'react-native';
-import PostCard from '../components/PostCard';
-import { PostContext } from '../context/PostContext';
+import PostCard from '../components/PostCard.jsx';
+import { PostContext } from '../context/PostContext.js';
 const HomeScreen = ({navigation}) => {
+
    const {posteos, setPosteos} = useContext(PostContext)
  
-   const renderPost = ({post}) =>(
-    <TouchableOpacity
-    key = {post.id}
-    onPress={() =>navigation.navigate('DetallePost', {post : post})}
-    >
-    <PostCard
-    key = {post.id}
-    Titulo = {post.titulo}
-    Descripcion = {post.descripcion}
-    Miniatura = {post.miniatura}
-    />    
-    </TouchableOpacity>
-   )
+    const renderPost = ({item: post}) =>(
+        <TouchableOpacity style = {estilos.touchable}
+        onPress = {() =>navigation.navigate('DetallePost', {post : post})}
+        >
+        <PostCard
+        key = {post.id}
+        titulo = {post.titulo}
+        descripcion = {post.descripcion}
+        miniatura = {post.miniatura}
+        />    
+        </TouchableOpacity>
+    )
 
 
     return (
@@ -25,11 +25,10 @@ const HomeScreen = ({navigation}) => {
 
         <FlatList
         data = {posteos}
-        renderPost={renderPost}
+        renderItem ={renderPost}
         keyExtractor={post => post.id.toString()}
         contentContainerStyle = {estilos.FlatListContainer}
         numColumns={2}/>
-        
          <Button
                 title="Postear"
                 onPress={ () => navigation.navigate('CrearPost')}

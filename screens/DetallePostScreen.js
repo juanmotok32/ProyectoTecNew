@@ -6,11 +6,12 @@ const DetallePostScreen = ({route, navigation}) => {
     const {post} = route.params; 
 
   return (
+    
 <View style = {estilos.counterContainer}>
     <Image 
     style = {estilos.imagen}
     resizeMode='contain'
-    source={{uri : post.Miniatura}}/>
+    source={{uri : post.miniatura}}/>
     <Text style = {estilos.title}>{post.Titulo} </Text>
     <Text style = {estilos.description}>{post.Descripcion} </Text>
     <Text style = {estilos.separador}>------------------------------------------------------------------------------------------</Text>

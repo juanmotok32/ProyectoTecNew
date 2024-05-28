@@ -5,8 +5,10 @@ import { useNavigation } from '@react-navigation/native';
 import { PostContext } from '../context/PostContext';
 
 const AgregarPostScreen = () => {
-  const navigation = useNavigation();
   const { addPost } = useContext(PostContext);
+
+  const navigation = useNavigation();
+
   const [titulo, setTitulo] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [miniatura, setMiniatura] = useState(null);
@@ -17,8 +19,8 @@ const AgregarPostScreen = () => {
       titulo,
       descripcion,
       miniatura
-    };
-    console.log('El nuevo post es: ', newPost);
+    }
+    console.log('El nuevo post es: ',  newPost.id);
     addPost(newPost);
     navigation.goBack();
   };
@@ -61,7 +63,7 @@ const AgregarPostScreen = () => {
           <Image source={{ uri: miniatura }} style={estilos.imagen} />
       )}
       <View style={estilos.buttonContainer}>
-        <Button color='#FC7E99' title="POSTEAR" onPress={handleSumit} />
+        <Button color='#FC7E99' title= "POSTEAR" onPress={handleSumit} />
       </View>
     </View>
   );

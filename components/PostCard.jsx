@@ -1,21 +1,24 @@
-import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import React from 'react';
+import { View, Text, Image, StyleSheet } from 'react-native';
 
-const PostCard = (Titulo, Descripcion, Miniatura) => {
-    const tituloAcortado = Titulo.lenght > 15 ? Titulo.substring(0, 20) + '...' : Titulo
+const PostCard = ({ titulo, descripcion, miniatura }) => {
+    const tituloAcortado = titulo.length > 15 ? titulo.substring(0, 20) + '...' : titulo;
+    const descAcortada = descripcion.length > 15 ? descripcion.substring(0, 20) + '...' : descripcion;
+
     return (
         <View style={estilos.card}>
             <Text style={estilos.title}>{tituloAcortado}</Text>
             <Image
                 style={estilos.imagen}
                 resizeMode='contain'
-                source={{ uri: Miniatura }} />
+                source={{ uri: miniatura }}
+            />
             <View style={estilos.descriptionContainer}>
-                <Text style={estilos.description}>{Descripcion}</Text>
+                <Text style={estilos.description}>{descAcortada}</Text>
             </View>
         </View>
-    )
-}
+    );
+};
 
 const estilos = StyleSheet.create({
     imagen: {
@@ -39,11 +42,6 @@ const estilos = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold'
     },
-    price: {
-        fontSize: 16,
-        color: 'green',
-        marginBottom: 5
-    },
     card: {
         justifyContent: 'center',
         borderWidth: 3,
@@ -55,6 +53,6 @@ const estilos = StyleSheet.create({
         width: 170,
         height: 370,
     }
-})
+});
 
-export default PostCard
+export default PostCard;
