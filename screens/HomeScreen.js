@@ -18,52 +18,72 @@ const HomeScreen = ({navigation}) => {
         />    
         </TouchableOpacity>
     )
+    React.useLayoutEffect(() => {
+        navigation.setOptions({
+          title: 'TecNews', 
+          headerStyle: {
+            backgroundColor: '#120907',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        });
+      }, [navigation]);
 
-
-    return (
-       <View style = {estilos.container}>
-        <Text style = {estilos.welcome}>Holaa</Text>
-        <FlatList
-        data = {posteos}
-        renderItem ={renderPost}
-        keyExtractor={post => post.id.toString()}
-        contentContainerStyle = {estilos.FlatListContainer}
-        numColumns={2}/>
+      return (
+        <View style = {estilos.container}>
      
-        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-        <Button color='#FC7E99' title= "Postear" onPress={() => navigation.navigate('CrearPost')} />
-       
-        </View>
-        </View>
-
-          )
+         <Text style = {estilos.welcome}>Posteos</Text>
+         <FlatList
+         data = {posteos}
+         renderItem ={renderPost}
+         keyExtractor={post => post.id.toString()}
+         contentContainerStyle = {estilos.FlatListContainer}
+         numColumns={1}/> 
+     
+         <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+         <Button color='#999be7' title= "Postear" onPress={() => navigation.navigate('CrearPost')} />
+        
+         </View>
+         </View>
+     
+           )
 }
 
 
 const estilos = StyleSheet.create({
+    
     container: {
         flex: 1,
         padding: 20,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: "#24213a"
+        
     },
     welcome: {
         fontSize: 20,
         fontWeight: 'bold',
         marginVertical: 20,
         textAlign: 'center',
-        backgroundColor : '#FC7E99',
+        color: 'white',
+        backgroundColor : '#5a598b',
         justifyContent: 'flex-start',
     },
     scrollContainer: {
         alignItems: 'center'
     },
     FlatListContainer:{
-        justifyContent: 'center'
+        justifyContent: 'center',
+        gap: 10,
+        alignItems: 'center',
+       
     },
     view:{
         flex:1,
         margin: 10,
         maxWidth:'45%'
+        
     }
 });
 export default HomeScreen

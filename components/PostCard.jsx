@@ -1,22 +1,21 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, ImageBackground } from 'react-native';
 
 const PostCard = ({ titulo, descripcion, miniatura }) => {
     const tituloAcortado = titulo.length > 15 ? titulo.substring(0, 20) + '...' : titulo;
     const descAcortada = descripcion.length > 15 ? descripcion.substring(0, 20) + '...' : descripcion;
 
     return (
-        <View style={estilos.card}>
-            <Text style={estilos.title}>{tituloAcortado}</Text>
+        <ImageBackground source={{ uri: miniatura }} style={estilos.card}>
+            <Text style={estilos.title}>{titulo}</Text>
             <Image
                 style={estilos.imagen}
                 resizeMode='contain'
-                source={{ uri: miniatura }}
+                // source={{ uri: miniatura }}
             />
-            <View style={estilos.descriptionContainer}>
-                <Text style={estilos.description}>{descAcortada}</Text>
-            </View>
-        </View>
+            
+    </ImageBackground>
+
     );
 };
 
@@ -32,15 +31,26 @@ const estilos = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
         backgroundColor: '#f9f9f9',
-        marginTop: 10
+        marginTop: 10,
+        
     },
     description: {
         fontSize: 14,
-        color: '#333'
+        color: '#333',
+        textAlignVertical: 'bottom'
+
     },
     title: {
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: 'white',
+        backgroundColor: 'rgba(128, 128, 128, 0.5)',
+        padding: 10,
+        borderRadius: 5,
+        bottom: 0,
+        position: 'absolute',
+        width: '120%',
+        display: "inline-flex",
     },
     card: {
         justifyContent: 'center',
@@ -49,9 +59,9 @@ const estilos = StyleSheet.create({
         borderRadius: 5,
         padding: 30,
         marginBottom: 10,
-        backgroundColor: '#fff',
-        width: 170,
+        width: 380,
         height: 370,
+        overflow: "hidden",
     }
 });
 
