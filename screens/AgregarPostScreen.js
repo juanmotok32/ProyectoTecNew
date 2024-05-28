@@ -56,12 +56,14 @@ const AgregarPostScreen = () => {
       <TextInput
         style={estilos.inputTitulo}
         placeholder='Titulo'
+        placeholderTextColor='white'
         value={titulo}
         onChangeText={setTitulo}
       />
       <TextInput
         style={estilos.inputDescripcion}
         placeholder='Descripción'
+        placeholderTextColor='white'
         value={descripcion}
         onChangeText={setDescripcion}
         multiline
@@ -93,7 +95,8 @@ const estilos = StyleSheet.create({
   title: {
     fontSize: 24,
     marginBottom: 150,
-    textAlign: 'center'
+    textAlign: 'center',
+    color: 'white'
   },
     inputTitulo: {
     backgroundColor: '#5a598b',

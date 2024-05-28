@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, ImageBackground } from 'react-native';
 
+
+
+
 const PostCard = ({ titulo, descripcion, miniatura }) => {
     const tituloAcortado = titulo.length > 15 ? titulo.substring(0, 20) + '...' : titulo;
     const descAcortada = descripcion.length > 15 ? descripcion.substring(0, 20) + '...' : descripcion;
@@ -40,17 +43,22 @@ const estilos = StyleSheet.create({
 
     },
     title: {
-        fontSize: 18,
+        fontSize: 28,
+        textShadow: '2px 2px 4px black',
         fontWeight: 'bold',
         color: 'white',
-        backgroundColor: 'rgba(128, 128, 128, 0.5)',
         padding: 10,
         borderRadius: 5,
-        bottom: 0,
+        bottom: -10,
+        left: 5,
         position: 'absolute',
-        width: '120%',
-        display: "inline-flex",
-    },
+        letterSpacing: 1.2,
+        margin: 15,
+        
+
+
+        
+        },
     card: {
         justifyContent: 'center',
         borderWidth: 3,

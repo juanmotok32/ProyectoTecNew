@@ -1,9 +1,23 @@
 import React from 'react'
-import { View, Image, Button, Text, StyleSheet } from 'react-native'
+import { View, Image, Button, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 const DetallePostScreen = ({route, navigation}) => {
 
     const {post} = route.params; 
+
+    React.useLayoutEffect(() => {
+      navigation.setOptions({
+        title: 'Detalles', 
+        headerStyle: {
+          backgroundColor: '#120907',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      });
+    }, [navigation]);
+
 
   return (
     
@@ -13,9 +27,12 @@ const DetallePostScreen = ({route, navigation}) => {
     resizeMode='contain'
     source={{uri : post.miniatura}}/>
     <Text style = {estilos.title}>{post.Titulo} </Text>
+
     <Text style = {estilos.description}>{post.Descripcion} </Text>
-    <Text style = {estilos.separador}>------------------------------------------------------------------------------------------</Text>
-    <Button title = 'Volver Atras' onPress={ () => navigation.navigate('Home')}/>
+    
+    {/* <TouchableOpacity onPress={ () => navigation.navigate('Home')}>
+  <Image style = {estilos.flecha} source = {require('../assets/flecha-izq.png')} />
+</TouchableOpacity> */}
     </View>
   )
 }
@@ -50,12 +67,20 @@ const estilos = StyleSheet.create({
       counterContainer:{
             flex: 1,
             paddin: 20,
-            justifyContent: "center"
+            justifyContent: "center",
+            backgroundColor: "#24213a",
         },
     description: {
         fontSize: 14,
-        color: '#333'
+        color: 'white'
     },
+    flecha: {
+      width: 50,
+      height: 50,
+      backgroundColor: '#5a598b',
+      borderRadius: 5,
+      margin: 10
+    }
 })
 
 export default DetallePostScreen
