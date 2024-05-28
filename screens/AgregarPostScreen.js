@@ -28,7 +28,7 @@ const AgregarPostScreen = () => {
     navigation.setOptions({
       title: 'Crear Post', 
       headerStyle: {
-        backgroundColor: '#5910BC',
+        backgroundColor: '#120907',
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
@@ -68,13 +68,13 @@ const AgregarPostScreen = () => {
         numberOfLines={4}
       />
       <View style={estilos.buttonContainer}>
-        <Button color='#5910BC' title='Subir Miniatura' onPress={subirMiniatura} />
+        <Button color='#999be7' title='Subir Miniatura' onPress={subirMiniatura} />
       </View>
       {miniatura && (
           <Image source={{ uri: miniatura }} style={estilos.imagen} />
       )}
       <View style={estilos.buttonContainer}>
-        <Button color='#5910BC' title= "POSTEAR" onPress={handleSumit} />
+        <Button color='#999be7' title= "POSTEAR" onPress={handleSumit} />
       </View>
     </View>
   );
@@ -83,7 +83,7 @@ const AgregarPostScreen = () => {
 const estilos = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#DCC2FF',
+    backgroundColor: '#24213a',
     alignItems: 'center',
     padding: 20,
     justifyContent: 'flex-start',
@@ -96,7 +96,7 @@ const estilos = StyleSheet.create({
     textAlign: 'center'
   },
     inputTitulo: {
-    backgroundColor: '#F4E0FA',
+    backgroundColor: '#5a598b',
     height: 40,
     borderColor: 'black',
     borderWidth: 1,
@@ -105,7 +105,7 @@ const estilos = StyleSheet.create({
     width: '100%',
   },
   inputDescripcion: {
-    backgroundColor: '#F4E0FA',
+    backgroundColor: '#5a598b',
     borderColor: 'black',
     borderWidth: 1,
     marginBottom: 10,
