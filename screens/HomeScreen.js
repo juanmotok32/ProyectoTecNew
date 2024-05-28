@@ -1,5 +1,5 @@
 import React, { useContext} from 'react';
-import { View, StyleSheet, FlatList, Button, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, FlatList, Button, TouchableOpacity, Text } from 'react-native';
 import PostCard from '../components/PostCard.jsx';
 import { PostContext } from '../context/PostContext.js';
 const HomeScreen = ({navigation}) => {
@@ -21,21 +21,21 @@ const HomeScreen = ({navigation}) => {
 
 
     return (
-        <View style = {estilos.container}>
-
+       <View style = {estilos.container}>
+        <Text style = {estilos.welcome}>Holaa</Text>
         <FlatList
         data = {posteos}
         renderItem ={renderPost}
         keyExtractor={post => post.id.toString()}
         contentContainerStyle = {estilos.FlatListContainer}
         numColumns={2}/>
-         <Button
-                title="Postear"
-                onPress={ () => navigation.navigate('CrearPost')}
-            />
-
+     
+        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+        <Button color='#FC7E99' title= "Postear" onPress={() => navigation.navigate('CrearPost')} />
+       
         </View>
-  
+        </View>
+
           )
 }
 
@@ -50,7 +50,9 @@ const estilos = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         marginVertical: 20,
-        textAlign: 'center'
+        textAlign: 'center',
+        backgroundColor : '#FC7E99',
+        justifyContent: 'flex-start',
     },
     scrollContainer: {
         alignItems: 'center'
@@ -62,9 +64,6 @@ const estilos = StyleSheet.create({
         flex:1,
         margin: 10,
         maxWidth:'45%'
-    },
-    touchable :{
-
     }
 });
 export default HomeScreen
