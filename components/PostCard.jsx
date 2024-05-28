@@ -11,10 +11,10 @@ const PostCard = ({ titulo, descripcion, miniatura }) => {
             <Image
                 style={estilos.imagen}
                 resizeMode='contain'
-                // source={{ uri: miniatura }}
+            // source={{ uri: miniatura }}
             />
-            
-    </ImageBackground>
+
+        </ImageBackground>
 
     );
 };
@@ -32,7 +32,6 @@ const estilos = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: '#f9f9f9',
         marginTop: 10,
-        
     },
     description: {
         fontSize: 14,

@@ -24,7 +24,18 @@ const AgregarPostScreen = () => {
     addPost(newPost);
     navigation.goBack();
   };
-
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      title: 'Crear Post', 
+      headerStyle: {
+        backgroundColor: '#5910BC',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    });
+  }, [navigation]);
   const subirMiniatura = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -57,13 +68,13 @@ const AgregarPostScreen = () => {
         numberOfLines={4}
       />
       <View style={estilos.buttonContainer}>
-        <Button color='#FC7E99' title='Subir Miniatura' onPress={subirMiniatura} />
+        <Button color='#5910BC' title='Subir Miniatura' onPress={subirMiniatura} />
       </View>
       {miniatura && (
           <Image source={{ uri: miniatura }} style={estilos.imagen} />
       )}
       <View style={estilos.buttonContainer}>
-        <Button color='#FC7E99' title= "POSTEAR" onPress={handleSumit} />
+        <Button color='#5910BC' title= "POSTEAR" onPress={handleSumit} />
       </View>
     </View>
   );
