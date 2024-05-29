@@ -3,10 +3,10 @@ import { View, StyleSheet, FlatList, Button, TouchableOpacity, Text } from 'reac
 import PostCard from '../components/PostCard.jsx';
 import { PostContext } from '../context/PostContext.js';
 const HomeScreen = ({navigation}) => {
-
+    
    const {posteos, setPosteos} = useContext(PostContext)
- 
     const renderPost = ({item: post}) =>(
+      
         <TouchableOpacity style = {estilos.touchable}
         onPress = {() =>navigation.navigate('DetallePost', {post : post})}
         >
@@ -18,6 +18,7 @@ const HomeScreen = ({navigation}) => {
         />    
         </TouchableOpacity>
     )
+
     React.useLayoutEffect(() => {
         navigation.setOptions({
           title: 'TecNews', 
@@ -30,18 +31,21 @@ const HomeScreen = ({navigation}) => {
           },
         });
       }, [navigation]);
-
+      
       return (
         <View style = {estilos.container}>
      
          <Text style = {estilos.welcome}>Posteos</Text>
+         
+         <Button color='#999be7' title= "Favoritos" onPress={() => navigation.navigate('FavoritosScreen')} />
+
          <FlatList
          data = {posteos}
          renderItem ={renderPost}
          keyExtractor={post => post.id.toString()}
          contentContainerStyle = {estilos.FlatListContainer}
          numColumns={1}/> 
-     
+
          <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
          <Button color='#999be7' title= "Postear" onPress={() => navigation.navigate('CrearPost')} />
         
