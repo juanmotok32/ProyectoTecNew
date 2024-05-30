@@ -49,7 +49,7 @@ const AgregarPostScreen = () => {
     }
   };
   
-
+  
   return (
     <View style={estilos.container}>
       <Text style={estilos.title}>Aca podrás crear un nuevo posteo</Text>

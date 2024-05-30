@@ -1,8 +1,25 @@
-import React from 'react'
-import { Text ,View, StyleSheet} from 'react-native'
+import React, { useContext } from 'react';
+import { Text ,View, StyleSheet, FlatList, TouchableOpacity, Alert, Button} from 'react-native'
+import { PostContext } from '../context/PostContext.js';
+import PostCard from '../components/PostCard.jsx';
 
 const FavoritosScreen = ({navigation}) => {
 
+  const { favoritos, setFavoritos } = useContext(PostContext);
+  
+  const renderFav = ({ item : post }) => (
+    <TouchableOpacity
+        style={estilos.touchable}
+        onPress={() => navigation.navigate('DetallePost', { post: post })}
+    >
+        <PostCard
+            key={post.id}
+            titulo={post.titulo}
+            descripcion={post.descripcion}
+            miniatura={post.miniatura}
+        />
+    </TouchableOpacity>
+);
     React.useLayoutEffect(() => {
         navigation.setOptions({
           title: 'Favoritos', 
@@ -15,11 +32,19 @@ const FavoritosScreen = ({navigation}) => {
           },
         });
       }, [navigation]);
+      
     return (
-        <View style = {estilos.container}>
-            <Text style = {estilos.welcome}>FAVORITOS</Text>
-        </View>
-          )
+      <View style={estilos.container}>
+      <FlatList      
+          data={favoritos}
+          renderItem={renderFav}
+          keyExtractor={fav => fav.id.toString()}
+          contentContainerStyle={estilos.FlatListContainer}
+          numColumns={1}
+      />
+
+  </View>
+  )
 }
 
 const estilos = StyleSheet.create({
