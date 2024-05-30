@@ -1,10 +1,10 @@
 import React from 'react'
 import { View, Text, StyleSheet, Button, TextInput } from 'react-native'
 
-const LoginScreen = ({ navigation }) => {
+const RegisterScreen = ({ navigation }) => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      title: <Text style={estilos.perfil}>Bienvenido a TecNews</Text>,
+      title: <Text style={estilos.perfil}>Registrarse</Text>,
       headerStyle: {
         backgroundColor: '#120907',
       },
@@ -14,7 +14,7 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={estilos.container}>
-      <Text style={estilos.welcome}>LOGIN</Text>
+      <Text style={estilos.welcome}>Registrarse</Text>
       <TextInput
         style={estilos.input}
         placeholder='Nombre de usuario'
@@ -30,9 +30,17 @@ const LoginScreen = ({ navigation }) => {
         onChangeText= ''
         secureTextEntry={true}
       />
+      <TextInput
+        style={estilos.input}
+        placeholder='Confirmar Contraseña'
+        placeholderTextColor='white'
+        value = ''
+        onChangeText= ''
+        secureTextEntry={true}
+      />
       <View style={estilos.buttonContainer}>
-        <Button color='#999be7' title="Loguearse" onPress={() => navigation.navigate('Home')} />
-        <Button color='#999be7' title="Registrarse" onPress={() => navigation.navigate('RegistrarseScreen')} />
+        <Button color='#999be7' title="Ya tengo una cuenta" onPress={() => navigation.navigate('LoginScreen')} />
+        <Button color='#999be7' title="Registrarse" onPress={() => navigation.navigate('Home')} />
       </View>
     </View>
   )
@@ -74,4 +82,4 @@ const estilos = StyleSheet.create({
   },
 });
 
-export default LoginScreen
+export default RegisterScreen

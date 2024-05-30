@@ -43,7 +43,7 @@ const FavoritosScreen = ({navigation}) => {
           numColumns={1}
       />
     <Button title = 'Volver' 
-      color='#999be7'
+      color='#999be7'r
       onPress={() => navigation.navigate('Home')}></Button>
   </View>
   )
