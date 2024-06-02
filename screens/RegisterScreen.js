@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Button, TextInput } from 'react-native'
 const RegisterScreen = ({ navigation }) => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      title: <Text style={estilos.perfil}>Registrarse</Text>,
+      title: <Text style={estilos.perfil}>Crear cuenta</Text>,
       headerStyle: {
         backgroundColor: '#120907',
       },
@@ -32,7 +32,7 @@ const RegisterScreen = ({ navigation }) => {
       />
       <TextInput
         style={estilos.input}
-        placeholder='Confirmar Contraseña'
+        placeholder='Confirmar contraseña'
         placeholderTextColor='white'
         value = ''
         onChangeText= ''

@@ -31,8 +31,8 @@ const LoginScreen = ({ navigation }) => {
         secureTextEntry={true}
       />
       <View style={estilos.buttonContainer}>
-        <Button color='#999be7' title="Loguearse" onPress={() => navigation.navigate('Home')} />
-        <Button color='#999be7' title="Registrarse" onPress={() => navigation.navigate('RegistrarseScreen')} />
+        <Button color='#999be7' title="Iniciar sesion" onPress={() => navigation.navigate('Home')} />
+        <Button color='#999be7' title="Crear cuenta" onPress={() => navigation.navigate('RegistrarseScreen')} />
       </View>
     </View>
   )
@@ -44,6 +44,8 @@ const estilos = StyleSheet.create({
     padding: 20,
     backgroundColor: "#24213a",
     justifyContent: 'space-between',
+    //aca pondria todo mas junto en la parte de arriba para abajo poner google/microsoft
+
   },
   welcome: {
     fontSize: 20,

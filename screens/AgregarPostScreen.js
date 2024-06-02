@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Button, TextInput, View, StyleSheet, Text, Image } from 'react-native';
+import { Button, TextInput, View, StyleSheet, Text, Image, Keyboard, InputAccessoryView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import { PostContext } from '../context/PostContext';
@@ -59,6 +59,8 @@ const AgregarPostScreen = () => {
         placeholderTextColor='white'
         value={titulo}
         onChangeText={setTitulo}
+        onSubmitEditing={Keyboard.dismiss}
+        returnKeyType='done'
       />
       <TextInput
         style={estilos.inputDescripcion}
@@ -68,7 +70,11 @@ const AgregarPostScreen = () => {
         onChangeText={setDescripcion}
         multiline
         numberOfLines={4}
+        inputAccessoryViewID="hechoButton"
       />
+      <InputAccessoryView nativeID="hechoButton">
+        <Text onPress={Keyboard.dismiss} style={estilos.botonHecho}>Hecho</Text>
+      </InputAccessoryView>
       <View style={estilos.buttonContainer}>
         <Button color='#999be7' title='Subir Miniatura' onPress={subirMiniatura} />
       </View>
@@ -124,6 +130,12 @@ const estilos = StyleSheet.create({
     width: '100%',
     height: 200,
     marginBottom: 10
+  },
+  botonHecho: {
+    color: '#fff',
+    fontSize: 15,
+    padding: 10,
+    paddingHorizontal: 338,
   },
 });
 
