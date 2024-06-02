@@ -1,7 +1,11 @@
-import React from 'react'
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, StyleSheet, Button, TextInput, Alert } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const RegisterScreen = ({ navigation }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   React.useLayoutEffect(() => {
     navigation.setOptions({
       title: <Text style={estilos.perfil}>Crear cuenta</Text>,
@@ -12,6 +16,24 @@ const RegisterScreen = ({ navigation }) => {
     });
   }, [navigation]);
 
+  const handleRegister = async () => { 
+    if (username === '' || password === '') {
+      Alert.alert('Error', 'El nombre de usuario y la contraseña no pueden estar vacíos');
+      return;
+    } else if (password != confirmPassword){
+      Alert.alert('Error', 'Las contraseñas no coinciden');
+      return;
+    } 
+  
+    try {
+      await AsyncStorage.setItem(username, password);
+      console.log('Usuario registrado');
+      navigation.navigate('Home');
+    } catch (error) {
+      console.error('Error al registrar el usuario', error);
+    }
+  }
+  
   return (
     <View style={estilos.container}>
       <Text style={estilos.welcome}>Registrarse</Text>
@@ -19,28 +41,28 @@ const RegisterScreen = ({ navigation }) => {
         style={estilos.input}
         placeholder='Nombre de usuario'
         placeholderTextColor='white'
-        value = ''
-        onChangeText= ''
+        value={username}
+        onChangeText={setUsername}
       />
       <TextInput
         style={estilos.input}
         placeholder='Contraseña'
         placeholderTextColor='white'
-        value = ''
-        onChangeText= ''
+        value={password}
+        onChangeText={setPassword}
         secureTextEntry={true}
       />
       <TextInput
         style={estilos.input}
         placeholder='Confirmar contraseña'
         placeholderTextColor='white'
-        value = ''
-        onChangeText= ''
+        value={confirmPassword}
+        onChangeText={setConfirmPassword}
         secureTextEntry={true}
       />
       <View style={estilos.buttonContainer}>
         <Button color='#999be7' title="Ya tengo una cuenta" onPress={() => navigation.navigate('LoginScreen')} />
-        <Button color='#999be7' title="Registrarse" onPress={() => navigation.navigate('Home')} />
+        <Button color='#999be7' title="Registrarse" onPress={handleRegister} />
       </View>
     </View>
   )

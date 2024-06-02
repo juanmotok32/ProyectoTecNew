@@ -17,7 +17,7 @@ export default function App() {
         <NavigationContainer>
             <Stack.Navigator initialRouteName="LoginScreen">
                 <Stack.Screen name="LoginScreen" component={LoginScreen} />
-                <Stack.Screen name= 'RegistrarseScreen' component={RegisterScreen}/>
+                <Stack.Screen name= 'RegisterScreen' component={RegisterScreen}/>
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name='CrearPost' component={AgregarPostScreen} />
                 <Stack.Screen name='DetallePost' component={DetallePostScreen} />
