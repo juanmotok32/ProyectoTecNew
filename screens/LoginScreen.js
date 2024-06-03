@@ -19,7 +19,7 @@ const LoginScreen = ({ navigation }) => {
   const handleLogin = async () => {
     try {
       const storedPassword = await AsyncStorage.getItem(username);
-  
+
       if (storedPassword === password) {
         navigation.navigate('Home');
       } else {
@@ -33,24 +33,28 @@ const LoginScreen = ({ navigation }) => {
   return (
     <View style={estilos.container}>
       <Text style={estilos.welcome}>LOGIN</Text>
+      <View>
+      <Text style = {estilos.inputs}>Nombre de usuario</Text>
       <TextInput
         style={estilos.input}
-        placeholder='Nombre de usuario'
-        placeholderTextColor='white'
+        placeholder=''
+        placeholderTextColor='black'
         value={username}
         onChangeText={setUsername}
       />
+      <Text style = {estilos.inputs}>Contraseña</Text>
       <TextInput
         style={estilos.input}
-        placeholder='Contraseña'
-        placeholderTextColor='white'
+        placeholder=''
+        placeholderTextColor='black'
         value={password}
         onChangeText={setPassword}
         secureTextEntry={true}
       />
+      </View>
       <View style={estilos.buttonContainer}>
-        <Button color='#999be7' title="Iniciar sesion" onPress={handleLogin} />
         <Button color='#999be7' title="Crear cuenta" onPress={() => navigation.navigate('RegisterScreen')} />
+        <Button color='#999be7' title="Iniciar sesion" onPress={handleLogin} />
       </View>
     </View>
   )
@@ -92,6 +96,9 @@ const estilos = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
   },
+  inputs:{
+    color: 'white'
+  }
 });
 
 export default LoginScreen

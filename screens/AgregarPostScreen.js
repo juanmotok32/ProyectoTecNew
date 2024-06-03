@@ -49,7 +49,6 @@ const AgregarPostScreen = () => {
     }
   };
   
-  
   return (
     <ScrollView contentContainerStyle={estilos.container}>
     <Text style={estilos.title}>Aca podrás crear un nuevo posteo</Text>
@@ -71,7 +70,6 @@ const AgregarPostScreen = () => {
       multiline
       numberOfLines={4}
     />
-    
       <View style={estilos.buttonContainer}>
       <Button color='#999be7' title= {miniatura ? 'Cambiar miniatura' : 'Subir Foto'} onPress={subirMiniatura} />
       </View>
@@ -93,7 +91,6 @@ const estilos = StyleSheet.create({
     padding: 20,
     justifyContent: 'flex-start',
     paddingTop: 60,
-
   },
   title: {
     fontSize: 24,
