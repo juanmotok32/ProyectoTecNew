@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Button, TextInput, Alert } from 'react-native'
+import { View, Text, StyleSheet, Button, TextInput, Alert, Image,ScrollView } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import myImage from '../Imagenes/LogoRegister.png';
 
 const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
@@ -16,6 +17,10 @@ const LoginScreen = ({ navigation }) => {
     });
   }, [navigation]);
 
+  const MyComponent = () => {
+    return <Image source={myImage} style={{ alignSelf : 'center',width: 200, height: 200}} />;
+  };
+  
   const handleLogin = async () => {
     try {
       const storedPassword = await AsyncStorage.getItem(username);
@@ -32,7 +37,12 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={estilos.container}>
-      <Text style={estilos.welcome}>LOGIN</Text>
+       <View>
+        <MyComponent/>
+      </View>
+      <ScrollView contentContainerStyle={estilos.container}>
+
+      <Text style = {estilos.welcome}>Inicia sesion en TecNews</Text>
       <View>
       <Text style = {estilos.inputs}>Nombre de usuario</Text>
       <TextInput
@@ -53,10 +63,12 @@ const LoginScreen = ({ navigation }) => {
       />
       </View>
       <View style={estilos.buttonContainer}>
-        <Button color='#999be7' title="Crear cuenta" onPress={() => navigation.navigate('RegisterScreen')} />
         <Button color='#999be7' title="Iniciar sesion" onPress={handleLogin} />
       </View>
+      </ScrollView>
+
     </View>
+    
   )
 }
 
@@ -70,12 +82,11 @@ const estilos = StyleSheet.create({
 
   },
   welcome: {
-    fontSize: 20,
+    fontSize: 28,
     fontWeight: 'bold',
     marginVertical: 20,
     textAlign: 'center',
     color: 'white',
-    backgroundColor: '#5a598b',
   },
   perfil: {
     fontWeight: 'bold',
@@ -83,9 +94,7 @@ const estilos = StyleSheet.create({
     textAlign: 'center',
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginVertical: 20,
+    marginVertical: 150,
     backgroundColor: 'transparent'
   }, 
     input: {

@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, FlatList, Button, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, FlatList, Button, TouchableOpacity, Text,Image } from 'react-native';
 import PostCard from '../components/PostCard.jsx';
 import { PostContext } from '../context/PostContext.js';
+import myImage from '../Imagenes/SegundoLogo.png';
 
 const HomeScreen = ({ navigation }) => {
     const { posteos, setPosteos } = useContext(PostContext);
@@ -20,6 +21,10 @@ const HomeScreen = ({ navigation }) => {
         </TouchableOpacity>
     );
 
+    const Logo = () => {
+        return <Image source={myImage} style={{ top: -10 , alignSelf: 'center',width: 40, height: 40}} />;
+    };
+
     React.useLayoutEffect(() => {
         navigation.setOptions({
             title: 'TecNews',
@@ -32,8 +37,8 @@ const HomeScreen = ({ navigation }) => {
             },
             headerRight: () => (
                 <Button
-                    color='#999be7'
-                    title="Perfil"
+                    color='#24213a'
+                    title="👤"
                     onPress={() => navigation.navigate('PerfilScreen')}
                 />
             ),
@@ -42,6 +47,7 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <View style={estilos.container}>
+            <Logo/>
             <Text style={estilos.welcome}>Posteos</Text>
             <FlatList
                 data={posteos}
@@ -68,7 +74,6 @@ const estilos = StyleSheet.create({
     welcome: {
         fontSize: 20,
         fontWeight: 'bold',
-        marginVertical: 20,
         textAlign: 'center',
         color: 'white',
         backgroundColor: '#5a598b',

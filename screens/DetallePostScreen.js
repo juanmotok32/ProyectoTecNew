@@ -43,20 +43,20 @@ const DetallePostScreen = ({ route, navigation }) => {
     navigation.goBack();
   }
 return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>{post.titulo}</Text>
+    <ScrollView contentContainerStyle={estilos.container}>
+      <Text style={estilos.title}>{post.titulo}</Text>
 
       <Image
-        style={styles.imagen}
+        style={estilos.imagen}
         resizeMode='contain'
         source={{ uri: post.miniatura }}
       />
 
-      <ScrollView style={styles.descripcionContainer}>
-        <Text style={styles.descripcion}>{post.descripcion}</Text>
+      <ScrollView style={estilos.descripcionContainer}>
+        <Text style={estilos.descripcion}>{post.descripcion}</Text>
       </ScrollView>
 
-      <View style={styles.buttonContainer}>
+      <View style={estilos.buttonContainer}>
         <Button color='#999be7' title="Guardar" onPress={handleSumit} />
         <Button color='#999be7' title="Eliminar" onPress={remove} />
       </View>
@@ -64,7 +64,7 @@ return (
   );
 };
 
-const styles = StyleSheet.create({
+const estilos = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 20,
