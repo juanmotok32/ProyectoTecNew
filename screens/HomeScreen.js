@@ -5,21 +5,27 @@ import { PostContext } from '../context/PostContext.js';
 import myImage from '../Imagenes/SegundoLogo.png';
 
 const HomeScreen = ({ navigation }) => {
-    const { posteos, setPosteos } = useContext(PostContext);
+    const { posteos, favoritos, addFavorito, removeFavorito } = useContext(PostContext);
 
-    const renderPost = ({ item: post }) => (
-        <TouchableOpacity
-            style={estilos.touchable}
-            onPress={() => navigation.navigate('DetallePost', { post: post })}
-        >
-            <PostCard
-                key={post.id}
-                titulo={post.titulo}
-                descripcion={post.descripcion}
-                miniatura={post.miniatura}
-            />
-        </TouchableOpacity>
-    );
+    const renderPost = ({ item: post }) => {
+        const isFavorito = favoritos.some(fav => fav.id === post.id);
+    
+        return (
+            <TouchableOpacity
+                style={estilos.touchable}
+                onPress={() => navigation.navigate('DetallePost', { post })}
+            >
+                <PostCard
+                    key={post.id}
+                    titulo={post.titulo}
+                    miniatura={post.miniatura}
+                    isFavorito={isFavorito}
+                    onPress={() => isFavorito ? removeFavorito(post.id) : addFavorito(post)}
+                />
+            </TouchableOpacity>
+        );
+    };
+    
 
     const Logo = () => {
         return <Image source={myImage} style={{ top: -10 , alignSelf: 'center',width: 40, height: 40}} />;

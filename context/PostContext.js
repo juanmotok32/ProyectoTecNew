@@ -29,6 +29,7 @@ export const PostProvider = ({children}) => {
         return 'Post eliminado';
     };
 
+    
 
     return (
     <PostContext.Provider value = {{addPost, posteos, addFavorito, favoritos, removeFavorito , removePost}}>

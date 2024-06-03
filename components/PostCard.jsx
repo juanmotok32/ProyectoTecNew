@@ -1,21 +1,27 @@
 import React from 'react';
-import { Text, Image, StyleSheet, ImageBackground } from 'react-native';
+import { Text, Image, StyleSheet, ImageBackground,TouchableOpacity } from 'react-native';
+import corazon from '../Imagenes/Corazon.png'; 
+import corazonRelleno from '../Imagenes/CorazonRelleno.png';
 
-const PostCard = ({ titulo, miniatura }) => {
+
+
+const PostCard = ({ titulo, miniatura, onPress , isFavorito}) => {
 
     const tituloAcortado = titulo.length > 15 ? titulo.substring(0, 20) + '...' : titulo;
 
     return (
         <ImageBackground source={{ uri: miniatura }} style={estilos.card}>
-            <Text style={estilos.title}>{titulo}</Text>
-            <Image
-                style={estilos.imagen}
-                resizeMode='contain'
-            // source={{ uri: miniatura }}
-            />
+        <Text style={estilos.title}>{titulo}</Text>
+        <Image
+            style={estilos.imagen}
+            resizeMode='contain'
+        // source={{ uri: miniatura }}
+        />
+        <TouchableOpacity onPress={onPress}>
+        <Image source={isFavorito ? corazonRelleno : corazon} style={isFavorito ? estilos.favoritoRelleno : estilos.favorito} />
+        </TouchableOpacity>
 
-        </ImageBackground>
-
+    </ImageBackground>
     );
 };
 
@@ -62,7 +68,23 @@ const estilos = StyleSheet.create({
         height: 320,
         overflow: "hidden",
         marginTop: 20
-    }
+    },
+    favorito: {
+        width: 30,
+        height:27,
+        position: 'absolute',
+        top: 0,
+        right: 40,
+      
+    },
+    favoritoRelleno: {
+        width: 35,
+        height: 27,
+        position: 'absolute',
+        top: 0,
+        right: 38,
+    },
+
 });
 
 export default PostCard;

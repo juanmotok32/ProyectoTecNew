@@ -3,11 +3,14 @@ import { Text ,View, StyleSheet, FlatList, TouchableOpacity, Alert, Button} from
 import { PostContext } from '../context/PostContext.js';
 import PostCard from '../components/PostCard.jsx';
 
+
 const FavoritosScreen = ({navigation}) => {
 
-  const { favoritos, setFavoritos } = useContext(PostContext);
+  const { favoritos, setFavoritos, addFavorito, removeFavorito } = useContext(PostContext);
   
-  const renderFav = ({ item : post }) => (
+  const renderFav = ({ item : post }) => {
+    const isFavorito = favoritos.some(fav => fav.id === post.id);
+    return(
     <TouchableOpacity
         style={estilos.touchable}
         onPress={() => navigation.navigate('DetallePost', { post: post })}
@@ -17,9 +20,15 @@ const FavoritosScreen = ({navigation}) => {
             titulo={post.titulo}
             descripcion={post.descripcion}
             miniatura={post.miniatura}
+            isFavorito={isFavorito}
+                onPress={() => removeFavorito(post.id)}
+        
         />
     </TouchableOpacity>
-);
+    )
+  
+
+  }
     React.useLayoutEffect(() => {
         navigation.setOptions({
           title: 'Favoritos', 

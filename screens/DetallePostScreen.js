@@ -1,10 +1,14 @@
 import React, { useContext } from 'react';
-import { View, Image, Button, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Image, Button, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { PostContext } from '../context/PostContext';
+import corazon from '../Imagenes/Corazon.png';
+import corazonRelleno from '../Imagenes/CorazonRelleno.png';
 
 const DetallePostScreen = ({ route, navigation }) => {
   const { post } = route.params;
-  const { addFavorito, removeFavorito } = useContext(PostContext);
+  const { favoritos, addFavorito, removeFavorito , removePost} = useContext(PostContext);
+
+  const isFavorito = favoritos.some(fav => fav.id === post.id);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -18,31 +22,29 @@ const DetallePostScreen = ({ route, navigation }) => {
       },
       headerRight: () => (
         <Button
-          color='#999be7'
-          title="Perfil"
+          color='#24213a'
+          title="👤"
           onPress={() => navigation.navigate('PerfilScreen')}
         />
       ),
     });
   }, [navigation]);
 
-  const handleSumit = () => {
-    const newPost = {
-      id: post.id,
-      titulo: post.titulo,
-      descripcion: post.descripcion,
-      miniatura: post.miniatura
+  const handleFavoritoPress = () => {
+    if (isFavorito) {
+      removeFavorito(post.id);
+    } else {
+      addFavorito(post);
     }
-    console.log('SE GUARDO ', newPost.id);
-    addFavorito(newPost);
-    navigation.goBack();
+  };
+  const handleDeletePost = () => {
+    removePost(post.id);
+    removeFavorito(post.id);
+    navigation.navigate('Home'); 
   };
 
-  const remove = () => {
-    removeFavorito(post.id)
-    navigation.goBack();
-  }
-return (
+
+  return (
     <ScrollView contentContainerStyle={estilos.container}>
       <Text style={estilos.title}>{post.titulo}</Text>
 
@@ -57,8 +59,10 @@ return (
       </ScrollView>
 
       <View style={estilos.buttonContainer}>
-        <Button color='#999be7' title="Guardar" onPress={handleSumit} />
-        <Button color='#999be7' title="Eliminar" onPress={remove} />
+        <TouchableOpacity onPress={handleFavoritoPress}>
+          <Image source={isFavorito ? corazonRelleno : corazon} style={isFavorito ? estilos.favoritoRelleno : estilos.favorito} />
+        </TouchableOpacity>
+        <Button color='#999be7' title="Eliminar Post" onPress={handleDeletePost} />
       </View>
     </ScrollView>
   );
@@ -103,7 +107,16 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 60, 
+    marginTop: 60,
+  },
+  favorito: {
+    width: 33,
+    height: 31,
+    right: -3,
+  },
+  favoritoRelleno: {
+    width: 40,
+    height: 30,
   },
 });
 
