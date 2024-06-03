@@ -33,7 +33,7 @@ const estilos = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     perfil : {
-        textDecorationLine: 'underline', 
+        // textDecorationLine: 'underline', 
         fontWeight: 'bold', 
         color: '#fff' 
     }

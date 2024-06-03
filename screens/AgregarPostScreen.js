@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Button, TextInput, View, StyleSheet, Text, Image } from 'react-native';
+import { Button, TextInput, View, StyleSheet, Text, Image, Keyboard, ScrollView  } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import { PostContext } from '../context/PostContext';
@@ -51,26 +51,29 @@ const AgregarPostScreen = () => {
   
   
   return (
-    <View style={estilos.container}>
-      <Text style={estilos.title}>Aca podrás crear un nuevo posteo</Text>
-      <TextInput
-        style={estilos.inputTitulo}
-        placeholder='Titulo'
-        placeholderTextColor='white'
-        value={titulo}
-        onChangeText={setTitulo}
-      />
-      <TextInput
-        style={estilos.inputDescripcion}
-        placeholder='Descripción'
-        placeholderTextColor='white'
-        value={descripcion}
-        onChangeText={setDescripcion}
-        multiline
-        numberOfLines={4}
-      />
+    <ScrollView contentContainerStyle={estilos.container}>
+    <Text style={estilos.title}>Aca podrás crear un nuevo posteo</Text>
+    <TextInput
+      style={estilos.inputTitulo}
+      placeholder='Titulo'
+      placeholderTextColor='white'
+      value={titulo}
+      onChangeText={setTitulo}
+      onSubmitEditing={Keyboard.dismiss}
+      returnKeyType='done'
+    />
+    <TextInput
+      style={estilos.inputDescripcion}
+      placeholder='Descripción'
+      placeholderTextColor='white'
+      value={descripcion}
+      onChangeText={setDescripcion}
+      multiline
+      numberOfLines={4}
+    />
+    
       <View style={estilos.buttonContainer}>
-        <Button color='#999be7' title='Subir Miniatura' onPress={subirMiniatura} />
+      <Button color='#999be7' title= {miniatura ? 'Cambiar miniatura' : 'Subir Foto'} onPress={subirMiniatura} />
       </View>
       {miniatura && (
           <Image source={{ uri: miniatura }} style={estilos.imagen} />
@@ -78,7 +81,7 @@ const AgregarPostScreen = () => {
       <View style={estilos.buttonContainer}>
         <Button color='#999be7' title= "POSTEAR" onPress={handleSumit} />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -94,9 +97,12 @@ const estilos = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    marginBottom: 150,
+    marginBottom: 40,
     textAlign: 'center',
     color: 'white'
+  },
+  scrollContainer: {
+    alignItems: 'center'
   },
     inputTitulo: {
     backgroundColor: '#5a598b',
@@ -111,19 +117,22 @@ const estilos = StyleSheet.create({
     backgroundColor: '#5a598b',
     borderColor: 'black',
     borderWidth: 1,
-    marginBottom: 10,
+    marginBottom: 5,
     paddingHorizontal: 10,
     width: '100%',
     textAlignVertical: 'top',
+    maxHeight: 110,
   },
   buttonContainer: {
-    marginBottom: 10,
+    marginBottom: 5,
     width: '100%',
+    marginTop: 20,
   },
   imagen: {
     width: '100%',
     height: 200,
-    marginBottom: 10
+    marginBottom: 10,
+    justifyContent: 'center',
   },
 });
 

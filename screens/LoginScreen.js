@@ -1,7 +1,11 @@
-import React from 'react'
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, StyleSheet, Button, TextInput, Alert } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({ navigation }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       title: <Text style={estilos.perfil}>Bienvenido a TecNews</Text>,
@@ -12,6 +16,20 @@ const LoginScreen = ({ navigation }) => {
     });
   }, [navigation]);
 
+  const handleLogin = async () => {
+    try {
+      const storedPassword = await AsyncStorage.getItem(username);
+  
+      if (storedPassword === password) {
+        navigation.navigate('Home');
+      } else {
+        Alert.alert('Error', 'Nombre de usuario o contraseña incorrectos');
+      }
+    } catch (error) {
+      console.error('Error al iniciar sesión', error);
+    }
+  }
+
   return (
     <View style={estilos.container}>
       <Text style={estilos.welcome}>LOGIN</Text>
@@ -19,20 +37,20 @@ const LoginScreen = ({ navigation }) => {
         style={estilos.input}
         placeholder='Nombre de usuario'
         placeholderTextColor='white'
-        value = ''
-        onChangeText= ''
+        value={username}
+        onChangeText={setUsername}
       />
       <TextInput
         style={estilos.input}
         placeholder='Contraseña'
         placeholderTextColor='white'
-        value = ''
-        onChangeText= ''
+        value={password}
+        onChangeText={setPassword}
         secureTextEntry={true}
       />
       <View style={estilos.buttonContainer}>
-        <Button color='#999be7' title="Loguearse" onPress={() => navigation.navigate('Home')} />
-        <Button color='#999be7' title="Registrarse" onPress={() => navigation.navigate('RegistrarseScreen')} />
+        <Button color='#999be7' title="Iniciar sesion" onPress={handleLogin} />
+        <Button color='#999be7' title="Crear cuenta" onPress={() => navigation.navigate('RegisterScreen')} />
       </View>
     </View>
   )
@@ -44,6 +62,8 @@ const estilos = StyleSheet.create({
     padding: 20,
     backgroundColor: "#24213a",
     justifyContent: 'space-between',
+    //aca pondria todo mas junto en la parte de arriba para abajo poner google/microsoft
+
   },
   welcome: {
     fontSize: 20,
