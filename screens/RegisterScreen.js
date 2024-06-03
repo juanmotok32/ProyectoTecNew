@@ -37,29 +37,34 @@ const RegisterScreen = ({ navigation }) => {
   return (
     <View style={estilos.container}>
       <Text style={estilos.welcome}>Registrarse</Text>
+      <View>
+      <Text style = {estilos.inputs}> Nombre de usuario</Text>
       <TextInput
         style={estilos.input}
-        placeholder='Nombre de usuario'
+        placeholder=''
         placeholderTextColor='white'
         value={username}
         onChangeText={setUsername}
       />
+      <Text style = {estilos.inputs}> Ingresar Contraseña</Text>
       <TextInput
         style={estilos.input}
-        placeholder='Contraseña'
+        placeholder=''
         placeholderTextColor='white'
         value={password}
         onChangeText={setPassword}
         secureTextEntry={true}
       />
+      <Text style = {estilos.inputs}> Confirmar Contraseña</Text>
       <TextInput
         style={estilos.input}
-        placeholder='Confirmar contraseña'
+        placeholder=''
         placeholderTextColor='white'
         value={confirmPassword}
         onChangeText={setConfirmPassword}
         secureTextEntry={true}
       />
+      </View>
       <View style={estilos.buttonContainer}>
         <Button color='#999be7' title="Ya tengo una cuenta" onPress={() => navigation.navigate('LoginScreen')} />
         <Button color='#999be7' title="Registrarse" onPress={handleRegister} />
@@ -102,6 +107,9 @@ const estilos = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
   },
+  inputs : {
+    color: 'white'
+  }
 });
 
 export default RegisterScreen

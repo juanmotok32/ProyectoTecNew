@@ -9,13 +9,16 @@ import DetallePostScreen from './screens/DetallePostScreen.js';
 import FavoritosScreen from './screens/FavoritosScreen.js'
 import PerfilScreen from './screens/PerfilScreen.js'
 import RegisterScreen from './screens/RegisterScreen.js';
+import PrincipalScreen from './screens/PrincipalScreen.js';
+
 const Stack = createStackNavigator();
 
 export default function App() {
     return (
       <PostProvider>
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="LoginScreen">
+
+            <Stack.Navigator initialRouteName="Principal">
                 <Stack.Screen name="LoginScreen" component={LoginScreen} />
                 <Stack.Screen name= 'RegisterScreen' component={RegisterScreen}/>
                 <Stack.Screen name="Home" component={HomeScreen} />
@@ -23,8 +26,8 @@ export default function App() {
                 <Stack.Screen name='DetallePost' component={DetallePostScreen} />
                 <Stack.Screen name= 'FavoritosScreen' component={FavoritosScreen}/>
                 <Stack.Screen name= 'PerfilScreen' component={PerfilScreen}/>
-
-
+                <Stack.Screen name= 'Principal' component={PrincipalScreen}/>
+                
             </Stack.Navigator>
         </NavigationContainer>
       </PostProvider>
