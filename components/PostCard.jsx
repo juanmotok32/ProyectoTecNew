@@ -1,10 +1,7 @@
 import React from 'react';
 import { Text, Image, StyleSheet, ImageBackground } from 'react-native';
 
-
-
-
-const PostCard = ({ titulo, descripcion, miniatura }) => {
+const PostCard = ({ titulo, miniatura }) => {
 
     const tituloAcortado = titulo.length > 15 ? titulo.substring(0, 20) + '...' : titulo;
 
@@ -59,13 +56,12 @@ const estilos = StyleSheet.create({
         justifyContent: 'center',
         borderWidth: 1,
         borderColor: 'black',
-        borderRadius: 100,
-        padding: 30,
+        borderRadius: 50,
         marginBottom: 10,
-        width: 380,
-        height: 370,
+        width: 340,
+        height: 320,
         overflow: "hidden",
-        marginTop: 30
+        marginTop: 20
     }
 });
 

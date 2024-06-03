@@ -1,11 +1,11 @@
 import React from 'react'
 import { Text , View, Button, StyleSheet, Image } from 'react-native'
-import myImage from '../Imagenes/SegundoLogo.png';
+import myImage from '../Imagenes/LogoRegister.png';
 
 const PrincipalScreen = ({navigation}) => {
 
     const MyComponent = () => {
-        return <Image source={myImage} style={{width: 100, height: 100}} />;
+        return <Image source={myImage} style={{width: 130, height: 140}} />;
       };
       React.useLayoutEffect(() => {
         navigation.setOptions({
@@ -30,11 +30,8 @@ const PrincipalScreen = ({navigation}) => {
    <Button color='#999be7' title="Crear cuenta" onPress={() => navigation.navigate('RegisterScreen')} />
    </View>
    <View style ={estilos.buttonContainer}>
-   <Text style = {estilos.textoCrear}> Ya tenes una cuenta?</Text>
-   <Button color='#999be7' title="Ya tengo cuenta" onPress={() => navigation.navigate('LoginScreen')} />
-
- 
-
+   <Text style = {estilos.textoCrear}> ¿Ya tenes una cuenta?</Text>
+   <Button color='#999be7' title="Iniciar sesion" onPress={() => navigation.navigate('LoginScreen')} />
    </View>
    </View>
   )
@@ -49,8 +46,9 @@ const estilos = StyleSheet.create({
     },
     texto :{
         textAlign: 'center',
-        color: 'white',
-        fontSize: 18,
+        color: '#BC88F5',
+        fontSize: 28,
+        fontWeight: 'bold',
     },
     textoCrear :{
         textAlign: 'center',
