@@ -1,12 +1,18 @@
 import React, { useContext } from 'react';
-import { Text ,View, StyleSheet, FlatList, TouchableOpacity, Alert, Button} from 'react-native'
+import { View, StyleSheet, FlatList, TouchableOpacity, Button,Image} from 'react-native'
 import { PostContext } from '../context/PostContext.js';
 import PostCard from '../components/PostCard.jsx';
+import myImage from '../Imagenes/SegundoLogo.png';
 
 
 const FavoritosScreen = ({navigation}) => {
 
-  const { favoritos, setFavoritos, addFavorito, removeFavorito } = useContext(PostContext);
+  const { favoritos, removeFavorito } = useContext(PostContext);
+  
+  
+  const MyComponent = () => {
+    return <Image source={myImage} style={{ top: -10 , alignSelf: 'center',width: 40, height: 40}} />;
+  };
   
   const renderFav = ({ item : post }) => {
     const isFavorito = favoritos.some(fav => fav.id === post.id);
@@ -44,6 +50,7 @@ const FavoritosScreen = ({navigation}) => {
       
     return (
       <View style={estilos.container}>
+        <MyComponent/>
       <FlatList      
           data={favoritos}
           renderItem={renderFav}

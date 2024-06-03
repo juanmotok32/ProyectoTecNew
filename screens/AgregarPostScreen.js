@@ -3,6 +3,7 @@ import { Button, TextInput, View, StyleSheet, Text, Image, Keyboard, ScrollView 
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import { PostContext } from '../context/PostContext';
+import myImage from '../Imagenes/SegundoLogo.png';
 
 const AgregarPostScreen = () => {
   const { addPost } = useContext(PostContext);
@@ -13,6 +14,10 @@ const AgregarPostScreen = () => {
   const [descripcion, setDescripcion] = useState('');
   const [miniatura, setMiniatura] = useState(null);
 
+  const MyComponent = () => {
+    return <Image source={myImage} style={{ top: -20 , alignSelf: 'center',width: 40, height: 40}} />;
+  };
+   
   const handleSumit = () => {
     const newPost = {
       id: Math.random().toString(),
@@ -51,6 +56,7 @@ const AgregarPostScreen = () => {
   
   return (
     <ScrollView contentContainerStyle={estilos.container}>
+    <MyComponent/>
     <Text style={estilos.title}>Aca podrás crear un nuevo posteo</Text>
     <TextInput
       style={estilos.inputTitulo}

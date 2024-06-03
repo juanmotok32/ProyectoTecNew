@@ -3,6 +3,7 @@ import { View, Image, Button, Text, StyleSheet, ScrollView, TouchableOpacity } f
 import { PostContext } from '../context/PostContext';
 import corazon from '../Imagenes/Corazon.png';
 import corazonRelleno from '../Imagenes/CorazonRelleno.png';
+import myImage from '../Imagenes/SegundoLogo.png';
 
 const DetallePostScreen = ({ route, navigation }) => {
   const { post } = route.params;
@@ -43,11 +44,16 @@ const DetallePostScreen = ({ route, navigation }) => {
     navigation.navigate('Home'); 
   };
 
+  const MyComponent = () => {
+    return <Image source={myImage} style={{ top: 10 , alignSelf: 'center',width: 40, height: 40}} />;
+  };
 
   return (
     <ScrollView contentContainerStyle={estilos.container}>
-      <Text style={estilos.title}>{post.titulo}</Text>
 
+      <MyComponent/>
+
+      <Text style={estilos.title}>{post.titulo}</Text>
       <Image
         style={estilos.imagen}
         resizeMode='contain'
@@ -77,7 +83,7 @@ const estilos = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    marginBottom: 20,
+    marginBottom: 30,
     textAlign: 'center',
     color: 'white',
     textShadowColor: 'black',
@@ -85,7 +91,7 @@ const estilos = StyleSheet.create({
     textShadowRadius: 4,
     fontWeight: 'bold',
     letterSpacing: 1.2,
-    marginTop: 10,
+    marginTop: 50,
   },
   imagen: {
     width: '100%',

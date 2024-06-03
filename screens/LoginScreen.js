@@ -24,7 +24,6 @@ const LoginScreen = ({ navigation }) => {
   const handleLogin = async () => {
     try {
       const storedPassword = await AsyncStorage.getItem(username);
-
       if (storedPassword === password) {
         navigation.navigate('Home');
       } else {

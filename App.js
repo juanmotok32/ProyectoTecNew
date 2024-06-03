@@ -18,7 +18,7 @@ export default function App() {
       <PostProvider>
         <NavigationContainer>
 
-            <Stack.Navigator initialRouteName="Principal">
+            <Stack.Navigator initialRouteName="LoginScreen">
                 <Stack.Screen name="LoginScreen" component={LoginScreen} />
                 <Stack.Screen name= 'RegisterScreen' component={RegisterScreen}/>
                 <Stack.Screen name="Home" component={HomeScreen} />
