@@ -18,16 +18,16 @@ export default function App() {
       <PostProvider>
         <NavigationContainer>
 
-            <Stack.Navigator initialRouteName="RegisterScreen">
-                <Stack.Screen name="LoginScreen" component={LoginScreen} />
+            <Stack.Navigator initialRouteName="PrincipalScreen">
                 <Stack.Screen name= 'RegisterScreen' component={RegisterScreen}/>
+                <Stack.Screen name="LoginScreen" component={LoginScreen} />
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name='CrearPost' component={AgregarPostScreen} />
                 <Stack.Screen name='DetallePost' component={DetallePostScreen} />
                 <Stack.Screen name= 'FavoritosScreen' component={FavoritosScreen}/>
                 <Stack.Screen name= 'PerfilScreen' component={PerfilScreen}/>
-                <Stack.Screen name= 'Principal' component={PrincipalScreen}/>
-                
+                <Stack.Screen name= 'PrincipalScreen' component={PrincipalScreen}/>
+
             </Stack.Navigator>
         </NavigationContainer>
       </PostProvider>
