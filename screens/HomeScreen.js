@@ -3,9 +3,12 @@ import { View, StyleSheet, FlatList, Button, TouchableOpacity, Text,Image } from
 import PostCard from '../components/PostCard.jsx';
 import { PostContext } from '../context/PostContext.js';
 import myImage from '../Imagenes/SegundoLogo.png';
+import * as ImagePicker from 'expo-image-picker';
+
 
 const HomeScreen = ({ navigation }) => {
     const { posteos, favoritos, addFavorito, removeFavorito } = useContext(PostContext);
+    
 
     const renderPost = ({ item: post }) => {
         const isFavorito = favoritos.some(fav => fav.id === post.id);

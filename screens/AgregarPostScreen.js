@@ -6,6 +6,7 @@ import { PostContext } from '../context/PostContext';
 import myImage from '../Imagenes/SegundoLogo.png';
 
 const AgregarPostScreen = () => {
+
   const { addPost } = useContext(PostContext);
 
   const navigation = useNavigation();
@@ -13,11 +14,16 @@ const AgregarPostScreen = () => {
   const [titulo, setTitulo] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [miniatura, setMiniatura] = useState(null);
+  
 
+  
+  
+  
+  
   const MyComponent = () => {
     return <Image source={myImage} style={{ top: -20 , alignSelf: 'center',width: 40, height: 40}} />;
   };
-   
+  
   const handleSumit = () => {
     const newPost = {
       id: Math.random().toString(),
@@ -41,6 +47,7 @@ const AgregarPostScreen = () => {
       },
     });
   }, [navigation]);
+  
   const subirMiniatura = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -48,10 +55,22 @@ const AgregarPostScreen = () => {
       aspect: [4, 3],
       quality: 1,
     });
-    console.log('SUBIR MINIATURA: ', result);
+    
     if (!result.cancelled) {
-      setMiniatura(result.assets[0].uri);
+      setMiniatura(result.uri);
     }
+  };
+  const subirFotoDesdeCamara = async () => {
+      let result = await ImagePicker.launchCameraAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+      });
+  
+      if (!result.cancelled) {
+          setMiniatura(result.uri);
+      }
   };
   
   return (
@@ -77,8 +96,9 @@ const AgregarPostScreen = () => {
       numberOfLines={4}
     />
       <View style={estilos.buttonContainer}>
-      <Button color='#999be7' title= {miniatura ? 'Cambiar miniatura' : 'Subir Foto'} onPress={subirMiniatura} />
-      </View>
+    <Button color='#999be7' title={miniatura ? 'Cambiar miniatura' : 'Subir Foto'} onPress={subirMiniatura} />
+    <Button color='#999be7' title="Tomar Foto" onPress={subirFotoDesdeCamara} />
+</View>
       {miniatura && (
           <Image source={{ uri: miniatura }} style={estilos.imagen} />
       )}
