@@ -1,13 +1,13 @@
-import React, { useContext, useState } from 'react';
-import { Button, TextInput, View, StyleSheet, Text, Image, Keyboard, ScrollView  } from 'react-native';
+import React, { useContext, useState, useEffect } from 'react';
+import { Button, TextInput, View, StyleSheet, Text, Image, Keyboard, ScrollView, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import { PostContext } from '../context/PostContext';
 import myImage from '../Imagenes/SegundoLogo.png';
 
+
 const AgregarPostScreen = () => {
   const { addPost } = useContext(PostContext);
-
   const navigation = useNavigation();
 
   const [titulo, setTitulo] = useState('');
@@ -15,23 +15,34 @@ const AgregarPostScreen = () => {
   const [miniatura, setMiniatura] = useState(null);
 
   const MyComponent = () => {
-    return <Image source={myImage} style={{ top: -20 , alignSelf: 'center',width: 40, height: 40}} />;
+    return <Image source={myImage} style={{ top: -20, alignSelf: 'center', width: 40, height: 40 }} />;
   };
-   
+
   const handleSumit = () => {
+    if (!titulo || titulo.length > 30) {
+      Alert.alert('Error', 'El título no puede ser nulo y debe tener menos de 30 caracteres.');
+      return;
+    }
+
+    if (!miniatura) {
+      Alert.alert('Error', 'Debe subir una miniatura.');
+      return;
+    }
+
     const newPost = {
       id: Math.random().toString(),
       titulo,
       descripcion,
       miniatura
-    }
-    console.log('El nuevo post es: ',  newPost.id);
+    };
+    console.log('El nuevo post es: ', newPost);
     addPost(newPost);
     navigation.goBack();
   };
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      title: 'Crear Post', 
+      title: 'Crear Post',
       headerStyle: {
         backgroundColor: '#120907',
       },
@@ -41,6 +52,7 @@ const AgregarPostScreen = () => {
       },
     });
   }, [navigation]);
+
   const subirMiniatura = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -48,42 +60,62 @@ const AgregarPostScreen = () => {
       aspect: [4, 3],
       quality: 1,
     });
-    console.log('SUBIR MINIATURA: ', result);
-    if (!result.cancelled) {
+
+    if (!result.canceled) {
       setMiniatura(result.assets[0].uri);
     }
   };
-  
+
+  const subirFotoDesdeCamara = async () => {
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setMiniatura(result.assets[0].uri);
+    }
+  };
+
   return (
-    <ScrollView contentContainerStyle={estilos.container}>
-    <MyComponent/>
-    <Text style={estilos.title}>Aca podrás crear un nuevo posteo</Text>
-    <TextInput
-      style={estilos.inputTitulo}
-      placeholder='Titulo'
-      placeholderTextColor='white'
-      value={titulo}
-      onChangeText={setTitulo}
-      onSubmitEditing={Keyboard.dismiss}
-      returnKeyType='done'
-    />
-    <TextInput
-      style={estilos.inputDescripcion}
-      placeholder='Descripción'
-      placeholderTextColor='white'
-      value={descripcion}
-      onChangeText={setDescripcion}
-      multiline
-      numberOfLines={4}
-    />
+    <ScrollView contentContainerStyle={{...estilos.container, flexGrow: 1}}>
+      <MyComponent />
+      <Text style={estilos.title}>Aca podrás crear un nuevo posteo</Text>
+      <TextInput
+        style={estilos.inputTitulo}
+        placeholder='Titulo'
+        placeholderTextColor='white'
+        value={titulo}
+        onChangeText={text => {
+          if (text.length <= 30) setTitulo(text);
+        }}
+        onSubmitEditing={Keyboard.dismiss}
+        returnKeyType='done'
+      />
+      <TextInput
+        style={estilos.inputDescripcion}
+        placeholder='Descripción'
+        placeholderTextColor='white'
+        value={descripcion}
+        onChangeText={setDescripcion}
+        multiline
+        numberOfLines={4}
+      />
       <View style={estilos.buttonContainer}>
-      <Button color='#999be7' title= {miniatura ? 'Cambiar miniatura' : 'Subir Foto'} onPress={subirMiniatura} />
+        <View style={estilos.buttonWrapper}>
+        <Button color='#999be7' title={miniatura ? 'Cambiar desde galería' : 'Subir Foto'} onPress={subirMiniatura} />
+        </View>
+        <View style={estilos.buttonWrapper}>
+        <Button color='#999be7' title={miniatura ? "Cambiar desde cámara" : "Tomar Foto"} onPress={subirFotoDesdeCamara} />
+        </View>
       </View>
       {miniatura && (
-          <Image source={{ uri: miniatura }} style={estilos.imagen} />
+        <Image source={{ uri: miniatura }} style={estilos.imagen} />
       )}
-      <View style={estilos.buttonContainer}>
-        <Button color='#999be7' title= "POSTEAR" onPress={handleSumit} />
+      <View style={estilos.buttonPostear}>
+        <Button color='#999be7' title="POSTEAR" onPress={handleSumit} />
       </View>
     </ScrollView>
   );
@@ -91,7 +123,6 @@ const AgregarPostScreen = () => {
 
 const estilos = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#24213a',
     alignItems: 'center',
     padding: 20,
@@ -107,7 +138,7 @@ const estilos = StyleSheet.create({
   scrollContainer: {
     alignItems: 'center'
   },
-    inputTitulo: {
+  inputTitulo: {
     backgroundColor: '#5a598b',
     height: 40,
     borderColor: 'black',
@@ -127,6 +158,17 @@ const estilos = StyleSheet.create({
     maxHeight: 110,
   },
   buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 5,
+    width: '100%',
+    marginTop: 12,
+  },
+  buttonWrapper: {
+    flex: 1,
+    marginHorizontal: 5,
+  },
+  buttonPostear: {
     marginBottom: 5,
     width: '100%',
     marginTop: 20,
@@ -139,4 +181,8 @@ const estilos = StyleSheet.create({
   },
 });
 
+
 export default AgregarPostScreen;
+
+
+
