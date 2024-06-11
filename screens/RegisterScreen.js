@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet, Button, TextInput, Alert,Image,ScrollView } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import myImage from '../Imagenes/LogoRegister.png';
-
+import { LoginContext } from '../context/LoginContext';
 const RegisterScreen = ({ navigation }) => {
+  const {isLogged} = useContext(LoginContext);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet, Button, TextInput, Alert, Image,ScrollView } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import myImage from '../Imagenes/LogoRegister.png';
+import { LoginContext } from '../context/LoginContext';
 
 const LoginScreen = ({ navigation }) => {
+  const { isLogged, login, register } = useContext(LoginContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -21,7 +23,13 @@ const LoginScreen = ({ navigation }) => {
     return <Image source={myImage} style={{ alignSelf : 'center',width: 200, height: 200}} />;
   };
   
+
+
+
+
   const handleLogin = async () => {
+
+
     try {
       const storedPassword = await AsyncStorage.getItem(username);
       if (storedPassword === password) {
