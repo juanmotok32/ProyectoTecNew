@@ -58,9 +58,9 @@ const FavoritosScreen = ({navigation}) => {
           contentContainerStyle={estilos.FlatListContainer}
           numColumns={1}
       />
-    <Button title = 'Volver' 
+    {/* <Button title = 'Volver' 
       color='#999be7'r
-      onPress={() => navigation.navigate('Home')}></Button>
+      onPress={() => navigation.navigate('Home')}></Button> */}
   </View>
   )
 }

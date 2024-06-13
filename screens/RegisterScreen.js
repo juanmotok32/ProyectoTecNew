@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import { View, Text, StyleSheet, Button, TextInput, Alert,Image,ScrollView } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState, useContext } from 'react';
+import { View, Text, StyleSheet, Button, TextInput, Alert, Image } from 'react-native';
 import myImage from '../Imagenes/LogoRegister.png';
 import { LoginContext } from '../context/LoginContext';
+
 const RegisterScreen = ({ navigation }) => {
-  const {isLogged} = useContext(LoginContext);
+  const { register } = useContext(LoginContext);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -24,68 +24,55 @@ const RegisterScreen = ({ navigation }) => {
     return <Image source={myImage} style={{ alignSelf : 'center',width: 200, height: 200}} />;
   };
 
-  const handleRegister = async () => { 
+  const handleRegister = async () => {
     if (username === '' || password === '') {
       Alert.alert('Error', 'El nombre de usuario y la contraseña no pueden estar vacíos');
       return;
     } else if (password != confirmPassword){
       Alert.alert('Error', 'Las contraseñas no coinciden');
       return;
-    } 
-  
-    try {
-      await AsyncStorage.setItem(username, password);
-      console.log('Usuario registrado');
-      navigation.navigate('LoginScreen');
-    } catch (error) {
-      console.error('Error al registrar el usuario', error);
     }
+    register(username, password, navigation);
   }
-  
+
   return (
     <View style={estilos.container}>
-
       <View>
-      <MyComponent/>
-      <Text style={estilos.welcome}>Registrarse</Text>
-      <View>
-    
-      <Text style = {estilos.inputs}> Nombre de usuario</Text>
-      <TextInput
-        style={estilos.input}
-        placeholder=''
-        placeholderTextColor='white'
-        value={username}
-        onChangeText={setUsername}
-      />
-      
-      <Text style = {estilos.inputs}> Ingresar contraseña</Text>
-      <TextInput
-        style={estilos.input}
-        placeholder=''
-        placeholderTextColor='white'
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry={true}
-      />
-      <Text style = {estilos.inputs}> Confirmar contraseña</Text>
-      <TextInput
-        style={estilos.input}
-        placeholder=''
-        placeholderTextColor='white'
-        value={confirmPassword}
-        onChangeText={setConfirmPassword}
-        secureTextEntry={true}F
-      />
-      </View>
+        <MyComponent />
+        <Text style={estilos.welcome}>Registrarse</Text>
+        <View>
+          <Text style={estilos.inputs}> Nombre de usuario</Text>
+          <TextInput
+            style={estilos.input}
+            placeholder=''
+            placeholderTextColor='white'
+            value={username}
+            onChangeText={setUsername}
+          />
+          <Text style={estilos.inputs}> Ingresar contraseña</Text>
+          <TextInput
+            style={estilos.input}
+            placeholder=''
+            placeholderTextColor='white'
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={true}
+          />
+          <Text style={estilos.inputs}> Confirmar contraseña</Text>
+          <TextInput
+            style={estilos.input}
+            placeholder=''
+            placeholderTextColor='white'
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            secureTextEntry={true}
+          />
+        </View>
       </View>
       <View style={estilos.buttonContainer}>
         <Button color='#999be7' title="Ya tengo una cuenta" onPress={() => navigation.navigate('LoginScreen')} />
         <Button color='#999be7' title="Registrarse" onPress={handleRegister} />
-        
       </View>
-        
-
     </View>
   )
 }
@@ -114,8 +101,8 @@ const estilos = StyleSheet.create({
     justifyContent: 'space-between',
     marginVertical: 20,
     backgroundColor: 'transparent'
-  }, 
-    input: {
+  },
+  input: {
     backgroundColor: '#5a598b',
     height: 40,
     borderColor: 'black',
@@ -123,9 +110,9 @@ const estilos = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
   },
-  inputs : {
+  inputs: {
     color: 'white'
   }
 });
 
-export default RegisterScreen
+export default RegisterScreen;

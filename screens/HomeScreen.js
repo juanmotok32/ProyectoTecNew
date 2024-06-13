@@ -1,18 +1,23 @@
-import React, { useContext } from 'react';
-import { View, StyleSheet, FlatList, Button, TouchableOpacity, Text,Image } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, StyleSheet, FlatList, Button, TouchableOpacity, Text, Image, RefreshControl } from 'react-native';
 import PostCard from '../components/PostCard.jsx';
 import { PostContext } from '../context/PostContext.js';
 import myImage from '../Imagenes/SegundoLogo.png';
 import * as ImagePicker from 'expo-image-picker';
 
-
 const HomeScreen = ({ navigation }) => {
-    const { posteos, favoritos, addFavorito, removeFavorito } = useContext(PostContext);
-    
+    const { posteos, favoritos, addFavorito, removeFavorito, fetchPosts } = useContext(PostContext);
+    const [refresh, setRefresh] = useState(false); // Aquí está la corrección
+
+    const onRefresh = async () => {
+        setRefresh(true);
+        await fetchPosts();
+        setRefresh(false);
+    };
 
     const renderPost = ({ item: post }) => {
         const isFavorito = favoritos.some(fav => fav.id === post.id);
-    
+
         return (
             <TouchableOpacity
                 style={estilos.touchable}
@@ -28,10 +33,9 @@ const HomeScreen = ({ navigation }) => {
             </TouchableOpacity>
         );
     };
-    
 
     const Logo = () => {
-        return <Image source={myImage} style={{ top: -10 , alignSelf: 'center',width: 40, height: 40}} />;
+        return <Image source={myImage} style={{ top: -10, alignSelf: 'center', width: 40, height: 40 }} />;
     };
 
     React.useLayoutEffect(() => {
@@ -56,7 +60,7 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <View style={estilos.container}>
-            <Logo/>
+            <Logo />
             <Text style={estilos.welcome}>Posteos</Text>
             <FlatList
                 data={posteos}
@@ -64,10 +68,13 @@ const HomeScreen = ({ navigation }) => {
                 keyExtractor={post => post.id.toString()}
                 contentContainerStyle={estilos.FlatListContainer}
                 numColumns={1}
+                refreshControl={
+                    <RefreshControl refreshing={refresh} onRefresh={onRefresh} />
+                }
             />
             <View style={estilos.buttonContainer}>
                 <Button color='#999be7' title="Favoritos" onPress={() => navigation.navigate('FavoritosScreen')} />
-                <Button color='#999be7' title="Postear" onPress={() => navigation.navigate('CrearPost')} />
+                <Button color='#999be7' title="Postear" onPress={() => navigation.navigate('AgregarPost')} />
             </View>
         </View>
     );
@@ -89,10 +96,10 @@ const estilos = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     imageBackground: {
-      flex: 1,
-      resizeMode: 'cover',
-      justifyContent: 'center',
-  },
+        flex: 1,
+        resizeMode: 'cover',
+        justifyContent: 'center',
+    },
     scrollContainer: {
         alignItems: 'center'
     },

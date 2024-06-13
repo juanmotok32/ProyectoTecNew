@@ -5,7 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 import { PostContext } from '../context/PostContext';
 import myImage from '../Imagenes/SegundoLogo.png';
 
-
 const AgregarPostScreen = () => {
   const { addPost } = useContext(PostContext);
   const navigation = useNavigation();
@@ -35,7 +34,6 @@ const AgregarPostScreen = () => {
       descripcion,
       miniatura
     };
-    console.log('El nuevo post es: ', newPost);
     addPost(newPost);
     navigation.goBack();
   };
@@ -80,7 +78,7 @@ const AgregarPostScreen = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={{...estilos.container, flexGrow: 1}}>
+    <ScrollView contentContainerStyle={{ ...estilos.container, flexGrow: 1 }}>
       <MyComponent />
       <Text style={estilos.title}>Aca podrás crear un nuevo posteo</Text>
       <TextInput
@@ -105,10 +103,10 @@ const AgregarPostScreen = () => {
       />
       <View style={estilos.buttonContainer}>
         <View style={estilos.buttonWrapper}>
-        <Button color='#999be7' title={miniatura ? 'Cambiar desde galería' : 'Subir Foto'} onPress={subirMiniatura} />
+          <Button color='#999be7' title={miniatura ? 'Cambiar desde galería' : 'Subir Foto'} onPress={subirMiniatura} />
         </View>
         <View style={estilos.buttonWrapper}>
-        <Button color='#999be7' title={miniatura ? "Cambiar desde cámara" : "Tomar Foto"} onPress={subirFotoDesdeCamara} />
+          <Button color='#999be7' title={miniatura ? "Cambiar desde cámara" : "Tomar Foto"} onPress={subirFotoDesdeCamara} />
         </View>
       </View>
       {miniatura && (
@@ -134,9 +132,6 @@ const estilos = StyleSheet.create({
     marginBottom: 40,
     textAlign: 'center',
     color: 'white'
-  },
-  scrollContainer: {
-    alignItems: 'center'
   },
   inputTitulo: {
     backgroundColor: '#5a598b',
@@ -181,8 +176,4 @@ const estilos = StyleSheet.create({
   },
 });
 
-
 export default AgregarPostScreen;
-
-
-

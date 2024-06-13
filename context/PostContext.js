@@ -1,39 +1,83 @@
-import React, { createContext,useState } from 'react'
+import React, { createContext, useEffect, useState } from "react";
 
 export const PostContext = createContext();
 
-export const PostProvider = ({children}) => {
-
-    const [posteos, setPost] = useState([])
-    const [favoritos, setFavoritos] = useState([])
-
-    const addPost = (newPost) => {
-        setPost((prevPost) => [...prevPost, newPost])
-    }
-    const addFavorito = (post) => {
-        const exists = favoritos.some(fav => fav.id === post.id);
-        if (exists) {
-            return 'El post ya está en favoritos';
+export const PostProvider = ({ children }) => {
+    const [posteos, setPost] = useState([]);
+    const [favoritos, setFavoritos] = useState([]);
+  
+    const fetchPosts = async () => {
+      try {
+        const result = await fetch("https://666789b3f53957909ff4916a.mockapi.io/api/v1/Posteos");
+        const posts = await result.json();
+        setPost(posts);
+      } catch (error) {
+        console.error("Error en el fetch de posts", error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchPosts();
+    }, []);
+  
+    const addPost = async (newPost) => {
+      try {
+        const result = await fetch(
+          "https://666789b3f53957909ff4916a.mockapi.io/api/v1/Posteos",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newPost),
+          }
+        );
+  
+        if (result.ok) {
+          const postCreado = await result.json();
+          setPost([...posteos, postCreado]);
         } else {
-            setFavoritos([...favoritos, post]);
-            return 'Post agregado a favoritos';
+          alert("Error en la creación del post");
         }
+      } catch (error) {
+        console.error("Error en la creación del post", error);
+      }
     };
-
+  
+    const addFavorito = (post) => {
+      const exists = favoritos.some((fav) => fav.id === post.id);
+      if (exists) {
+        return "El post ya está en favoritos";
+      } else {
+        setFavoritos([...favoritos, post]);
+        return "Post agregado a favoritos";
+      }
+    };
+  
     const removeFavorito = (postId) => {
-        setFavoritos(favoritos.filter(fav => fav.id !== postId));
-        return 'Post eliminado de favoritos';
+      setFavoritos(favoritos.filter((fav) => fav.id !== postId));
+      return "Post eliminado de favoritos";
     };
+  
     const removePost = (postId) => {
-        setPost(posteos.filter(post => post.id !== postId));
-        return 'Post eliminado';
+      setPost(posteos.filter((post) => post.id !== postId));
+      return "Post eliminado";
     };
-
-    
-
+  
     return (
-    <PostContext.Provider value = {{addPost, posteos, addFavorito, favoritos, removeFavorito , removePost}}>
-         {children}
-    </PostContext.Provider>
-    )
-}
+      <PostContext.Provider
+        value={{
+          addPost,
+          posteos,
+          addFavorito,
+          favoritos,
+          removeFavorito,
+          removePost,
+          fetchPosts
+        }}
+      >
+        {children}
+      </PostContext.Provider>
+    );
+  };
+  

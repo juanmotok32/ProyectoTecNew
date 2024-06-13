@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
-import { View, Text, StyleSheet, Button, TextInput, Alert, Image,ScrollView } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState, useContext, useEffect } from 'react';
+import { View, TextInput, Button, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import myImage from '../Imagenes/LogoRegister.png';
 import { LoginContext } from '../context/LoginContext';
 
 const LoginScreen = ({ navigation }) => {
-  const { isLogged, login, register } = useContext(LoginContext);
+  const { isLogged, login } = useContext(LoginContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -20,63 +19,59 @@ const LoginScreen = ({ navigation }) => {
   }, [navigation]);
 
   const MyComponent = () => {
-    return <Image source={myImage} style={{ alignSelf : 'center',width: 200, height: 200}} />;
+    return <Image source={myImage} style={{ alignSelf: 'center', width: 200, height: 200 }} />;
   };
-  
-
-
-
 
   const handleLogin = async () => {
-
-
-    try {
-      const storedPassword = await AsyncStorage.getItem(username);
-      if (storedPassword === password) {
-        navigation.navigate('Home');
-      } else {
-        Alert.alert('Error', 'Nombre de usuario o contraseña incorrectos');
-      }
-    } catch (error) {
-      console.error('Error al iniciar sesión', error);
+    if (!username || !password) {
+      alert('Por favor, completa todos los campos.');
+      return;
     }
-  }
+    try {
+      await login(username, password);
+    } catch (error) {
+      alert('Error al iniciar sesión. Inténtalo de nuevo.');
+    }
+  };
+
+  useEffect(() => {
+    if (isLogged === "logged") {
+      navigation.navigate('Home');
+    }
+  }, [isLogged, navigation]);
 
   return (
     <View style={estilos.container}>
-       <View>
-        <MyComponent/>
+      <View>
+        <MyComponent />
       </View>
       <ScrollView contentContainerStyle={estilos.container}>
-
-      <Text style = {estilos.welcome}>Inicia sesion en TecNews</Text>
-      <View>
-      <Text style = {estilos.inputs}>Nombre de usuario</Text>
-      <TextInput
-        style={estilos.input}
-        placeholder=''
-        placeholderTextColor='black'
-        value={username}
-        onChangeText={setUsername}
-      />
-      <Text style = {estilos.inputs}>Contraseña</Text>
-      <TextInput
-        style={estilos.input}
-        placeholder=''
-        placeholderTextColor='black'
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry={true}
-      />
-      </View>
-      <View style={estilos.buttonContainer}>
-        <Button color='#999be7' title="Iniciar sesion" onPress={handleLogin} />
-      </View>
+        <Text style={estilos.welcome}>Inicia sesión en TecNews</Text>
+        <View>
+          <Text style={estilos.inputs}>Nombre de usuario</Text>
+          <TextInput
+            style={estilos.input}
+            placeholder='Nombre de usuario'
+            placeholderTextColor='white'
+            value={username}
+            onChangeText={setUsername}
+          />
+          <Text style={estilos.inputs}>Contraseña</Text>
+          <TextInput
+            style={estilos.input}
+            placeholder='Contraseña'
+            placeholderTextColor='white'
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={true}
+          />
+        </View>
+        <View style={estilos.buttonContainer}>
+          <Button color='#999be7' title="Iniciar sesión" onPress={handleLogin} />
+        </View>
       </ScrollView>
-
     </View>
-    
-  )
+  );
 }
 
 const estilos = StyleSheet.create({
@@ -85,8 +80,6 @@ const estilos = StyleSheet.create({
     padding: 20,
     backgroundColor: "#24213a",
     justifyContent: 'space-between',
-    //aca pondria todo mas junto en la parte de arriba para abajo poner google/microsoft
-
   },
   welcome: {
     fontSize: 28,
@@ -103,8 +96,8 @@ const estilos = StyleSheet.create({
   buttonContainer: {
     marginVertical: 150,
     backgroundColor: 'transparent'
-  }, 
-    input: {
+  },
+  input: {
     backgroundColor: '#5a598b',
     height: 40,
     borderColor: 'black',
@@ -112,9 +105,9 @@ const estilos = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
   },
-  inputs:{
+  inputs: {
     color: 'white'
   }
 });
 
-export default LoginScreen
+export default LoginScreen;
