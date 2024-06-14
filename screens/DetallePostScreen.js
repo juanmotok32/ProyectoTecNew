@@ -4,9 +4,11 @@ import { PostContext } from '../context/PostContext';
 import corazon from '../Imagenes/Corazon.png';
 import corazonRelleno from '../Imagenes/CorazonRelleno.png';
 import myImage from '../Imagenes/SegundoLogo.png';
+import { LoginContext } from '../context/LoginContext';
 
 const DetallePostScreen = ({ route, navigation }) => {
   const { post } = route.params;
+  const { user } = useContext(LoginContext);
   const { favoritos, addFavorito, removeFavorito , removePost} = useContext(PostContext);
 
   const isFavorito = favoritos.some(fav => fav.id === post.id);
@@ -68,7 +70,9 @@ const DetallePostScreen = ({ route, navigation }) => {
         <TouchableOpacity onPress={handleFavoritoPress}>
           <Image source={isFavorito ? corazonRelleno : corazon} style={isFavorito ? estilos.favoritoRelleno : estilos.favorito} />
         </TouchableOpacity>
-        <Button color='#999be7' title="Eliminar Post" onPress={handleDeletePost} />
+        {user && user.admin && ( 
+          <Button color='#999be7' title="Eliminar Post" onPress={handleDeletePost} />
+        )}
       </View>
     </ScrollView>
   );

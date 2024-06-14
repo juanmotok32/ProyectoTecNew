@@ -5,11 +5,14 @@ export const LoginContext = createContext();
 
 export const LoginProvider = ({ children }) => {
   const [isLogged, setIsLogged] = useState("checking");
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const cargarEstado = async () => {
       const resultado = await AsyncStorage.getItem('isLogged');
       if (resultado === 'true') {
+        const storedUser = await AsyncStorage.getItem('user');
+        setUser(JSON.parse(storedUser));
         setIsLogged("logged");
       } else {
         setIsLogged("notLogged");
@@ -25,6 +28,8 @@ export const LoginProvider = ({ children }) => {
       const user = users.find(user => user.username === username && user.password === password);
       if (user) {
         await AsyncStorage.setItem('isLogged', 'true');
+        await AsyncStorage.setItem('user', JSON.stringify(user));
+        setUser(user);
         setIsLogged("logged");
       } else {
         alert('Usuario o contraseña incorrectos');
@@ -35,8 +40,7 @@ export const LoginProvider = ({ children }) => {
       alert("Error en el login");
     }
   }
-
-  const register = async (username, password, navigation) => {
+const register = async (username, password, navigation) => {
     try {
       const result = await fetch("https://666789b3f53957909ff4916a.mockapi.io/api/v1/Usuarios", {
         method: "POST",
@@ -45,10 +49,11 @@ export const LoginProvider = ({ children }) => {
         },
         body: JSON.stringify({
           username: username,
-          password: password
+          password: password,
+          admin: false // por defecto, los nuevos usuarios no son administradores
         })
       });
-  
+
       if (result.ok) {
         alert("Usuario registrado");
         navigation.navigate('LoginScreen'); 
@@ -56,19 +61,20 @@ export const LoginProvider = ({ children }) => {
         alert("Error al registrarse");
       }
     } catch (error) {
-      console.error('Error al Registrarse', error);
+      console.error('Error al registrarse', error);
       alert("Error en el registro");
     }
   }
-  
 
   const logout = async () => {
     await AsyncStorage.removeItem('isLogged');
+    await AsyncStorage.removeItem('user');
+    setUser(null);
     setIsLogged("notLogged");
   }
 
   return (
-    <LoginContext.Provider value={{ isLogged, login, register, logout }}>
+    <LoginContext.Provider value={{ isLogged, user, login, register, logout }}>
       {children}
     </LoginContext.Provider>
   );

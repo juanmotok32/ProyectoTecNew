@@ -1,42 +1,42 @@
-import React, { useContext } from 'react'
-import { View, Text, StyleSheet,Image, Button } from 'react-native'
+import React, { useContext } from 'react';
+import { View, Text, StyleSheet, Image, Button } from 'react-native';
 import myImage from '../Imagenes/SegundoLogo.png';
 import { LoginContext } from '../context/LoginContext';
 
-
 const PerfilScreen = ({navigation}) => {
-  const { logout } = useContext(LoginContext);
+  const { user, logout } = useContext(LoginContext);
 
   const handleLogout = () => {
     logout();
   }
-    React.useLayoutEffect(() => {
-        navigation.setOptions({
-          title: <Text style={estilos.perfil}>Perfil</Text>,
-          headerStyle: {
-            backgroundColor: '#120907',
-          },
-          headerTintColor: '#fff',
-        });
-      }, [navigation]);
 
-      
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      title: <Text style={estilos.perfil}>Perfil</Text>,
+      headerStyle: {
+        backgroundColor: '#120907',
+      },
+      headerTintColor: '#fff',
+    });
+  }, [navigation]);
+
   const MyComponent = () => {
     return <Image source={myImage} style={{  top: -10 , alignSelf: 'center',width: 40, height: 40}} />;
   };
-  
 
-    
-    return (
-        <View style = {estilos.container}>
-          <MyComponent/>
-            <Text style={estilos.welcome}>Nombre de usuario</Text>
-            <View style={estilos.buttonContainer}>
+  return (
+    <View style = {estilos.container}>
+      <MyComponent/>
+      {user && user.avatar && <Image source={{ uri: user.avatar }} style={estilos.avatar} />}
+      <Text style={estilos.welcome}>Nombre de usuario: {user && user.username ? user.username : 'Loading...'}</Text>
+      <Text style={estilos.welcome}>Email: {user && user.email ? user.email : 'Loading...'}</Text>
+      <View style={estilos.buttonContainer}>
         <Button title="Cerrar sesión" onPress={handleLogout} color='#999be7' />
       </View>
-        </View>
-          )
+    </View>
+  )
 }
+
 const estilos = StyleSheet.create({
     container: {
         flex: 1,
@@ -70,6 +70,12 @@ const estilos = StyleSheet.create({
     },
     inputs: {
       color: 'white'
-    }
+    },
+    avatar: {
+      width: 100,
+      height: 100,
+      borderRadius: 50,
+      marginBottom: 20,
+    },
 })
 export default PerfilScreen
