@@ -5,7 +5,7 @@ export const LoginContext = createContext();
 
 export const LoginProvider = ({ children }) => {
   const [isLogged, setIsLogged] = useState("checking");
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     const cargarEstado = async () => {
@@ -40,7 +40,7 @@ export const LoginProvider = ({ children }) => {
       alert("Error en el login");
     }
   }
-const register = async (username, password, navigation) => {
+const register = async (username, password, avatar, navigation) => {
     try {
       const result = await fetch("https://666789b3f53957909ff4916a.mockapi.io/api/v1/Usuarios", {
         method: "POST",
@@ -50,7 +50,9 @@ const register = async (username, password, navigation) => {
         body: JSON.stringify({
           username: username,
           password: password,
-          admin: false // por defecto, los nuevos usuarios no son administradores
+          admin: false, // por defecto, los nuevos usuarios no son administradores
+          email: `${username}@gmail.com`,
+          avatar: avatar,
         })
       });
 
@@ -73,8 +75,38 @@ const register = async (username, password, navigation) => {
     setIsLogged("notLogged");
   }
 
+  const updateProfile = async (username, email, avatar) => {
+    try {
+      // Aquí es donde actualizarías los detalles del usuario en tu base de datos
+      // Por ejemplo:
+      const result = await fetch(`https://666789b3f53957909ff4916a.mockapi.io/api/v1/Usuarios/${user.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          username: username,
+          email: email,
+          avatar: avatar,
+        })
+      });
+  
+      if (result.ok) {
+        const updatedUser = await result.json();
+        setUser(updatedUser);
+        await AsyncStorage.setItem('user', JSON.stringify(updatedUser));
+        alert("Perfil actualizado");
+      } else {
+        alert("Error al actualizar el perfil");
+      }
+    } catch (error) {
+      console.error('Error al actualizar el perfil', error);
+      alert("Error en la actualización del perfil");
+    }
+  }
+
   return (
-    <LoginContext.Provider value={{ isLogged, user, login, register, logout }}>
+    <LoginContext.Provider value={{ isLogged, user, login, register, logout, updateProfile }}>
       {children}
     </LoginContext.Provider>
   );

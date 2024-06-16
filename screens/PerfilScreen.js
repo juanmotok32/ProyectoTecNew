@@ -1,16 +1,20 @@
-import React, { useContext } from 'react';
-import { View, Text, StyleSheet, Image, Button } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { View, Text, StyleSheet, Image, Button, ActivityIndicator } from 'react-native';
 import myImage from '../Imagenes/SegundoLogo.png';
 import { LoginContext } from '../context/LoginContext';
 
 const PerfilScreen = ({navigation}) => {
   const { user, logout } = useContext(LoginContext);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   const handleLogout = () => {
     logout();
   }
 
   React.useLayoutEffect(() => {
+    console.log(user);
+
     navigation.setOptions({
       title: <Text style={estilos.perfil}>Perfil</Text>,
       headerStyle: {
@@ -20,21 +24,51 @@ const PerfilScreen = ({navigation}) => {
     });
   }, [navigation]);
 
+ useEffect(() => {
+    const loadUserData = async () => {
+      try {
+        // Aquí es donde cargarías los datos del usuario
+        // Por ejemplo:
+        // const userData = await fetchUserData();
+        // setUser(userData);
+        setIsLoading(false);
+      } catch (error) {
+        setIsError(true);
+        setIsLoading(false);
+      }
+    };
+  
+    loadUserData();
+  }, []);
+
   const MyComponent = () => {
     return <Image source={myImage} style={{  top: -10 , alignSelf: 'center',width: 40, height: 40}} />;
   };
 
-  return (
-    <View style = {estilos.container}>
-      <MyComponent/>
-      {user && user.avatar && <Image source={{ uri: user.avatar }} style={estilos.avatar} />}
-      <Text style={estilos.welcome}>Nombre de usuario: {user && user.username ? user.username : 'Loading...'}</Text>
-      <Text style={estilos.welcome}>Email: {user && user.email ? user.email : 'Loading...'}</Text>
-      <View style={estilos.buttonContainer}>
-        <Button title="Cerrar sesión" onPress={handleLogout} color='#999be7' />
-      </View>
+ return (
+  <View style = {estilos.container}>
+    <MyComponent/>
+    {isLoading ? (
+      <ActivityIndicator size="large" color="#0000ff" />
+    ) : isError ? (
+      <Text>Error al cargar la imagen</Text>
+    ) : (
+      <>
+        <Image
+          source={{ uri: user ? user.avatar : null }}
+          style={estilos.avatar}
+          onError={(error) => console.log('Error al cargar la imagen', error.nativeEvent.error)}
+        />
+      </>
+    )}
+    <Text style={estilos.welcome}>Nombre de usuario: {user && user.username ? user.username : 'Loading...'}</Text>
+    <Text style={estilos.welcome}>Email: {user && user.email ? user.email : 'Loading...'}</Text>
+    <View style={estilos.buttonContainer}>
+      <Button title="Cerrar sesión" onPress={handleLogout} color='#999be7' />
+      <Button color='#999be7' title="Editar Perfil" onPress={() => navigation.navigate('EditarPerfilScreen')} />
     </View>
-  )
+  </View>
+);
 }
 
 const estilos = StyleSheet.create({

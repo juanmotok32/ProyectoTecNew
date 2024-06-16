@@ -8,6 +8,7 @@ import { PostProvider } from './context/PostContext';
 import DetallePostScreen from './screens/DetallePostScreen';
 import FavoritosScreen from './screens/FavoritosScreen';
 import PerfilScreen from './screens/PerfilScreen';
+import EditarPerfilScreen from './screens/EditarPerfilScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import PrincipalScreen from './screens/PrincipalScreen';
 import { LoginContext, LoginProvider } from './context/LoginContext';
@@ -42,6 +43,7 @@ function AppNavigation() {
               <Stack.Screen name="DetallePost" component={DetallePostScreen} />
               <Stack.Screen name="FavoritosScreen" component={FavoritosScreen} />
               <Stack.Screen name="PerfilScreen" component={PerfilScreen} />
+              <Stack.Screen name="EditarPerfilScreen" component={EditarPerfilScreen} />
             </>)
       }
     </Stack.Navigator>
