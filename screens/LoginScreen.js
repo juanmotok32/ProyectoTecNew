@@ -7,6 +7,7 @@ const LoginScreen = ({ navigation }) => {
   const { isLogged, login } = useContext(LoginContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -41,11 +42,12 @@ const LoginScreen = ({ navigation }) => {
   }, [isLogged, navigation]);
 
   return (
+    
     <View style={estilos.container}>
+      <ScrollView>
       <View>
         <MyComponent />
-      </View>
-      <ScrollView contentContainerStyle={estilos.container}>
+      
         <Text style={estilos.welcome}>Inicia sesión en TecNews</Text>
         <View>
           <Text style={estilos.inputs}>Nombre de usuario</Text>
@@ -56,21 +58,31 @@ const LoginScreen = ({ navigation }) => {
             value={username}
             onChangeText={setUsername}
           />
+          </View>
           <Text style={estilos.inputs}>Contraseña</Text>
+          <View style={{ flexDirection: 'row' }}>
           <TextInput
             style={estilos.input}
             placeholder='Contraseña'
             placeholderTextColor='white'
+            maxLength={30}
             value={password}
             onChangeText={setPassword}
-            secureTextEntry={true}
+            secureTextEntry={!isPasswordVisible}
           />
+          <Button
+          color='#999be7'
+    title={isPasswordVisible ? '🔒' : '👁'}
+    onPress={() => setIsPasswordVisible(prevState => !prevState)}
+  />
+          </View>
         </View>
         <View style={estilos.buttonContainer}>
           <Button color='#999be7' title="Iniciar sesión" onPress={handleLogin} />
         </View>
-      </ScrollView>
+        </ScrollView>
     </View>
+    
   );
 }
 

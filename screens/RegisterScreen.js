@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, StyleSheet, Button, TextInput, Alert, Image } from 'react-native';
+import { View, Text, StyleSheet, Button, TextInput, Alert, Image, ScrollView } from 'react-native';
 import myImage from '../Imagenes/LogoRegister.png';
 import { LoginContext } from '../context/LoginContext';
 
@@ -9,6 +9,8 @@ const RegisterScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -32,11 +34,14 @@ const RegisterScreen = ({ navigation }) => {
       Alert.alert('Error', 'Las contraseñas no coinciden');
       return;
     }
-    register(username, password, navigation);
+    register(username, password, confirmPassword, navigation);
   }
 
   return (
+    
     <View style={estilos.container}>
+        <ScrollView>
+
       <View>
         <MyComponent />
         <Text style={estilos.welcome}>Registrarse</Text>
@@ -44,36 +49,54 @@ const RegisterScreen = ({ navigation }) => {
           <Text style={estilos.inputs}> Nombre de usuario</Text>
           <TextInput
             style={estilos.input}
-            placeholder=''
+            placeholder='Nombre de usuario'
             placeholderTextColor='white'
             value={username}
             onChangeText={setUsername}
           />
           <Text style={estilos.inputs}> Ingresar contraseña</Text>
+          <View style={{ flexDirection: 'row' }}>
           <TextInput
             style={estilos.input}
-            placeholder=''
+            placeholder='Contraseña'
             placeholderTextColor='white'
+            maxLength={30}
             value={password}
             onChangeText={setPassword}
-            secureTextEntry={true}
+            secureTextEntry={!isPasswordVisible}
           />
+          <Button 
+          color='#999be7'
+    title={isPasswordVisible ? '🔒' : '👁'}
+    onPress={() => setIsPasswordVisible(prevState => !prevState)}
+  />
+          </View>
           <Text style={estilos.inputs}> Confirmar contraseña</Text>
+          <View style={{ flexDirection: 'row' }}>
           <TextInput
             style={estilos.input}
-            placeholder=''
+            placeholder='Confirmar contraseña'
             placeholderTextColor='white'
+            maxLength={30}
             value={confirmPassword}
             onChangeText={setConfirmPassword}
-            secureTextEntry={true}
+            secureTextEntry={!isPasswordVisible}
           />
+          <Button 
+          color='#999be7'
+    title={isPasswordVisible ? '🔒' : '👁'}
+    onPress={() => setIsPasswordVisible(prevState => !prevState)}
+  />
+          </View>
         </View>
       </View>
       <View style={estilos.buttonContainer}>
         <Button color='#999be7' title="Ya tengo una cuenta" onPress={() => navigation.navigate('LoginScreen')} />
         <Button color='#999be7' title="Registrarse" onPress={handleRegister} />
       </View>
+      </ScrollView>
     </View>
+    
   )
 }
 

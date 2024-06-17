@@ -75,7 +75,7 @@ const register = async (username, password, avatar, navigation) => {
     setIsLogged("notLogged");
   }
 
-  const updateProfile = async (username, email, avatar) => {
+  const updateProfile = async (username, email, password, avatar) => {
     try {
       // Aquí es donde actualizarías los detalles del usuario en tu base de datos
       // Por ejemplo:
@@ -87,6 +87,7 @@ const register = async (username, password, avatar, navigation) => {
         body: JSON.stringify({
           username: username,
           email: email,
+          password: password,
           avatar: avatar,
         })
       });

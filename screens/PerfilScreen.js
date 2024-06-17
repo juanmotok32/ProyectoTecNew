@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, Button, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, Image, Button, ActivityIndicator, ScrollView } from 'react-native';
 import myImage from '../Imagenes/SegundoLogo.png';
 import { LoginContext } from '../context/LoginContext';
 
@@ -48,6 +48,7 @@ const PerfilScreen = ({navigation}) => {
  return (
   <View style = {estilos.container}>
     <MyComponent/>
+    <ScrollView>
     {isLoading ? (
       <ActivityIndicator size="large" color="#0000ff" />
     ) : isError ? (
@@ -67,6 +68,7 @@ const PerfilScreen = ({navigation}) => {
       <Button title="Cerrar sesión" onPress={handleLogout} color='#999be7' />
       <Button color='#999be7' title="Editar Perfil" onPress={() => navigation.navigate('EditarPerfilScreen')} />
     </View>
+    </ScrollView>
   </View>
 );
 }

@@ -17,7 +17,7 @@ const AgregarPostScreen = () => {
     return <Image source={myImage} style={{ top: -20, alignSelf: 'center', width: 40, height: 40 }} />;
   };
 
-  const handleSumit = () => {
+  const handleSubmit = () => {
     if (!titulo || titulo.length > 30) {
       Alert.alert('Error', 'El título no puede ser nulo y debe tener menos de 30 caracteres.');
       return;
@@ -113,7 +113,7 @@ const AgregarPostScreen = () => {
         <Image source={{ uri: miniatura }} style={estilos.imagen} />
       )}
       <View style={estilos.buttonPostear}>
-        <Button color='#999be7' title="POSTEAR" onPress={handleSumit} />
+        <Button color='#999be7' title="POSTEAR" onPress={handleSubmit} />
       </View>
     </ScrollView>
   );
