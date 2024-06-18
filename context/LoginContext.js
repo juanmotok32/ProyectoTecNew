@@ -51,7 +51,7 @@ const register = async (username, password, avatar, navigation) => {
         body: JSON.stringify({
           username: username,
           password: password,
-          admin: false, // por defecto, los nuevos usuarios no son administradores
+          admin: false,
           email: `${username}@gmail.com`,
           hasCustomAvatar: false,
         })
@@ -78,8 +78,6 @@ const register = async (username, password, avatar, navigation) => {
 
   const updateProfile = async (username, email, password, avatar) => {
     try {
-      // Aquí es donde actualizarías los detalles del usuario en tu base de datos
-      // Por ejemplo:
       const result = await fetch(`https://666789b3f53957909ff4916a.mockapi.io/api/v1/Usuarios/${user.id}`, {
         method: "PUT",
         headers: {

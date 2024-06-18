@@ -8,7 +8,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 const HomeScreen = ({ navigation }) => {
     const { posteos, favoritos, addFavorito, removeFavorito, fetchPosts } = useContext(PostContext);
-    const [refresh, setRefresh] = useState(false); // Aquí está la corrección
+    const [refresh, setRefresh] = useState(false);
     const { user, logout } = useContext(LoginContext);
 
     const onRefresh = async () => {
@@ -83,7 +83,6 @@ const HomeScreen = ({ navigation }) => {
             <View style={estilos.buttonContainer}>
                 <Button color='#999be7' title="Favoritos" onPress={() => navigation.navigate('FavoritosScreen')} />
                 <Button color='#999be7' title="Postear" onPress={() => navigation.navigate('AgregarPost')} />
-                <Button title="Cerrar sesión" onPress={handleLogout} color='#999be7' />
             </View>
         </View>
     );
