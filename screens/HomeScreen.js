@@ -3,11 +3,13 @@ import { View, StyleSheet, FlatList, Button, TouchableOpacity, Text, Image, Refr
 import PostCard from '../components/PostCard.jsx';
 import { PostContext } from '../context/PostContext.js';
 import myImage from '../Imagenes/SegundoLogo.png';
+import { LoginContext } from '../context/LoginContext.js';
 import * as ImagePicker from 'expo-image-picker';
 
 const HomeScreen = ({ navigation }) => {
     const { posteos, favoritos, addFavorito, removeFavorito, fetchPosts } = useContext(PostContext);
     const [refresh, setRefresh] = useState(false); // Aquí está la corrección
+    const { user, logout } = useContext(LoginContext);
 
     const onRefresh = async () => {
         setRefresh(true);
@@ -38,6 +40,10 @@ const HomeScreen = ({ navigation }) => {
         return <Image source={myImage} style={{ top: -10, alignSelf: 'center', width: 40, height: 40 }} />;
     };
 
+    const handleLogout = () => {
+        logout();
+      }
+
     React.useLayoutEffect(() => {
         navigation.setOptions({
             title: 'TecNews',
@@ -48,12 +54,14 @@ const HomeScreen = ({ navigation }) => {
             headerTitleStyle: {
                 fontWeight: 'bold',
             },
+            
             headerRight: () => (
                 <Button
                     color='#24213a'
                     title="👤"
                     onPress={() => navigation.navigate('PerfilScreen')}
                 />
+
             ),
         });
     }, [navigation]);
@@ -75,6 +83,7 @@ const HomeScreen = ({ navigation }) => {
             <View style={estilos.buttonContainer}>
                 <Button color='#999be7' title="Favoritos" onPress={() => navigation.navigate('FavoritosScreen')} />
                 <Button color='#999be7' title="Postear" onPress={() => navigation.navigate('AgregarPost')} />
+                <Button title="Cerrar sesión" onPress={handleLogout} color='#999be7' />
             </View>
         </View>
     );

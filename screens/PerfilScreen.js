@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, Button, ActivityIndicator, ScrollView } from 'react-native';
 import myImage from '../Imagenes/SegundoLogo.png';
 import { LoginContext } from '../context/LoginContext';
+import userDefaultImage from '../Imagenes/UserDefault.png';
 
 const PerfilScreen = ({navigation}) => {
   const { user, logout } = useContext(LoginContext);
@@ -55,11 +56,11 @@ const PerfilScreen = ({navigation}) => {
       <Text>Error al cargar la imagen</Text>
     ) : (
       <>
-        <Image
-          source={{ uri: user ? user.avatar : null }}
-          style={estilos.avatar}
-          onError={(error) => console.log('Error al cargar la imagen', error.nativeEvent.error)}
-        />
+      <Image
+  source={user && user.hasCustomAvatar ? { uri: user.avatar } : userDefaultImage}
+  style={estilos.avatar}
+  onError={(error) => console.log('Error al cargar la imagen', error.nativeEvent.error)}
+/>
       </>
     )}
     <Text style={estilos.welcome}>Nombre de usuario: {user && user.username ? user.username : 'Loading...'}</Text>

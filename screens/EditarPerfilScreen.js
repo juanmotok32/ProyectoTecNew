@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, TextInput, Button, Image, ActivityIndicator, Sc
 import { LoginContext } from '../context/LoginContext';
 import myImage from '../Imagenes/SegundoLogo.png';
 import * as ImagePicker from 'expo-image-picker';
+import userDefaultImage from '../Imagenes/UserDefault.png';
 
 const EditarPerfilScreen = ({ navigation }) => {
     const { user, updateProfile } = useContext(LoginContext);
@@ -11,6 +12,7 @@ const EditarPerfilScreen = ({ navigation }) => {
     const [password, setPassword] = useState(user.password);
     const [avatar, setAvatar] = useState(user ? user.avatar : null);
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [newImageSelected, setNewImageSelected] = useState(false);
 
     const handleSubmit = async () => {
       await updateProfile(nombre, email, password, avatar);
@@ -41,9 +43,24 @@ const EditarPerfilScreen = ({ navigation }) => {
 
     if (!result.canceled) {
       setAvatar(result.assets[0].uri);
+      setNewImageSelected(true);
     }
   };
 
+  const renderNewImage = () => {
+    if (newImageSelected) {
+      return (
+        <View>
+          <Text style={estilos.fotoDePerfil}>Nueva Foto de Perfil:</Text>
+          <View style={estilos.contenedorImagen}>
+          {avatar && (
+            <Image source={{ uri: avatar }} style={estilos.avatar} />
+          )}
+        </View>
+        </View>
+      );
+    }
+  };
   
   const subirFotoDesdeCamara = async () => {
     let result = await ImagePicker.launchCameraAsync({
@@ -55,6 +72,7 @@ const EditarPerfilScreen = ({ navigation }) => {
 
     if (!result.canceled) {
       setAvatar(result.assets[0].uri);
+      setNewImageSelected(true);
     }
   };
 
@@ -92,9 +110,15 @@ const EditarPerfilScreen = ({ navigation }) => {
     onPress={() => setIsPasswordVisible(prevState => !prevState)}
   />
           </View>
-      
+          <Text style={estilos.fotoDePerfil}>
+  {newImageSelected ? 'Antigua Foto de Perfil:' : 'Foto de Perfil:'}
+</Text>
           <View style={estilos.contenedorImagen}>
-  <Image source={{ uri: avatar }} style={estilos.avatar} />
+          <Image
+  source={user && user.hasCustomAvatar ? { uri: user.avatar } : userDefaultImage}
+  style={estilos.avatar}
+  onError={(error) => console.log('Error al cargar la imagen', error.nativeEvent.error)}
+/>
 </View>
         
 <Text style={estilos.welcome}>Cambiar perfil desde:</Text>
@@ -107,9 +131,7 @@ const EditarPerfilScreen = ({ navigation }) => {
           <Button color='#999be7' title={avatar ? "Cámara" : "Tomar Foto"} onPress={subirFotoDesdeCamara} />
         </View>
       </View>
-      {avatar && (
-        <Image source={{ uri: avatar }} style={estilos.imagen} />
-      )}
+      {renderNewImage()}
        <View style={estilos.buttonGuardar}>
       <Button color='#999be7' title="Guardar Cambios"  onPress={handleSubmit}   />
       </View>
@@ -123,6 +145,15 @@ const estilos = StyleSheet.create({
         flex: 1,
         padding: 20,
         backgroundColor: "#24213a",
+    },
+    fotoDePerfil: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: 'white',
+      backgroundColor: '#5a598b',
+      justifyContent: 'flex-start',
+      top: 25,
     },
     welcome: {
       fontSize: 20,
@@ -176,6 +207,11 @@ const estilos = StyleSheet.create({
       height: 200,
       borderRadius: 50,
       marginBottom: 20,
+    },
+    contenedorImagen: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
 })
 export default EditarPerfilScreen;

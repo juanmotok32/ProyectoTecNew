@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import userDefaultImage from '../Imagenes/UserDefault.png';
 
 export const LoginContext = createContext();
 
@@ -52,7 +53,7 @@ const register = async (username, password, avatar, navigation) => {
           password: password,
           admin: false, // por defecto, los nuevos usuarios no son administradores
           email: `${username}@gmail.com`,
-          avatar: avatar,
+          hasCustomAvatar: false,
         })
       });
 
@@ -89,6 +90,7 @@ const register = async (username, password, avatar, navigation) => {
           email: email,
           password: password,
           avatar: avatar,
+          hasCustomAvatar: avatar ? true : false,
         })
       });
   
