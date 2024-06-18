@@ -5,24 +5,31 @@ import corazonRelleno from '../Imagenes/CorazonRelleno.png';
 
 
 
+
+
+
 const PostCard = ({ titulo, miniatura, onPress, isFavorito }) => {
 
-    const tituloAcortado = titulo.length > 15 ? titulo.substring(0, 20) + '...' : titulo;
+
+    const tituloAcortado = titulo.length > 14 ? titulo.substring(0, 17) + '...' : titulo;
+
 
     return (
         <ImageBackground source={{ uri: miniatura }} style={estilos.card}>
-            <Text style={estilos.title}>{titulo}</Text>
+            <Text style={estilos.title}>{tituloAcortado}</Text>
             <Image
                 style={estilos.imagen}
                 resizeMode='contain'
             />
-            <TouchableOpacity onPress={onPress}>
+            <TouchableOpacity onPress={onPress} style={estilos.hearth}>
                 <Image source={isFavorito ? corazonRelleno : corazon} style={isFavorito ? estilos.favoritoRelleno : estilos.favorito} />
             </TouchableOpacity>
+
 
         </ImageBackground>
     );
 };
+
 
 const estilos = StyleSheet.create({
     imagen: {
@@ -43,6 +50,7 @@ const estilos = StyleSheet.create({
         color: '#333',
         textAlignVertical: 'bottom'
 
+
     },
     title: {
         fontSize: 28,
@@ -52,10 +60,9 @@ const estilos = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
         bottom: -10,
-        left: 30,
         position: 'absolute',
-        letterSpacing: 1.2,
-        margin: 15,
+        letterSpacing: 1.1,
+        margin: 10,
     },
     card: {
         justifyContent: 'center',
@@ -69,21 +76,26 @@ const estilos = StyleSheet.create({
         marginTop: 20
     },
     favorito: {
-        width: 30,
-        height: 27,
-        position: 'absolute',
-        top: 0,
-        right: 40,
-
+        width: 35,
+        height: 31,
+        right: -3,
     },
     favoritoRelleno: {
+        width: 42,
+        height: 31,
+    },
+    hearth: {
         width: 35,
         height: 27,
         position: 'absolute',
-        top: 0,
-        right: 38,
+        top: 40,
+        right: 40,
     },
+
 
 });
 
+
 export default PostCard;
+
+
