@@ -54,7 +54,9 @@ const estilos = StyleSheet.create({
     },
     title: {
         fontSize: 28,
-        textShadow: '2px 2px 4px black',
+        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+        textShadowOffset: { width: -1, height: 1 },
+        textShadowRadius: 10,
         fontWeight: 'bold',
         color: 'white',
         padding: 10,
