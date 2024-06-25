@@ -1,9 +1,8 @@
 import React, { createContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import userDefaultImage from '../Imagenes/UserDefault.png';
+
 
 export const LoginContext = createContext();
-
 export const LoginProvider = ({ children }) => {
   const [isLogged, setIsLogged] = useState("checking");
   const [user, setUser] = useState({});
@@ -41,7 +40,7 @@ export const LoginProvider = ({ children }) => {
       alert("Error en el login");
     }
   }
-const register = async (username, password, avatar, navigation) => {
+const register = async (username, password, navigation) => {
     try {
       const result = await fetch("https://666789b3f53957909ff4916a.mockapi.io/api/v1/Usuarios", {
         method: "POST",

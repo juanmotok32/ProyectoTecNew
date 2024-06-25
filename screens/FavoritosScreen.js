@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, FlatList, TouchableOpacity, Button,Image} from 'react-native'
+import { View, StyleSheet, FlatList, TouchableOpacity,Image} from 'react-native'
 import { PostContext } from '../context/PostContext.js';
 import PostCard from '../components/PostCard.jsx';
 import myImage from '../Imagenes/SegundoLogo.png';
@@ -8,7 +8,6 @@ import myImage from '../Imagenes/SegundoLogo.png';
 const FavoritosScreen = ({navigation}) => {
 
   const { favoritos, removeFavorito } = useContext(PostContext);
-  
   
   const MyComponent = () => {
     return <Image source={myImage} style={{ top: -10 , alignSelf: 'center',width: 40, height: 40}} />;
@@ -33,7 +32,6 @@ const FavoritosScreen = ({navigation}) => {
     </TouchableOpacity>
     )
   
-
   }
     React.useLayoutEffect(() => {
         navigation.setOptions({
@@ -58,9 +56,6 @@ const FavoritosScreen = ({navigation}) => {
           contentContainerStyle={estilos.FlatListContainer}
           numColumns={1}
       />
-    {/* <Button title = 'Volver' 
-      color='#999be7'r
-      onPress={() => navigation.navigate('Home')}></Button> */}
   </View>
   )
 }

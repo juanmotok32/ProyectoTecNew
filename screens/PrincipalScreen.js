@@ -2,8 +2,9 @@ import React from 'react'
 import { Text , View, Button, StyleSheet, Image } from 'react-native'
 import myImage from '../Imagenes/LogoRegister.png';
 
-const PrincipalScreen = ({navigation}) => {
 
+const PrincipalScreen = ({navigation}) => {
+  
     const MyComponent = () => {
         return <Image source={myImage} style={{width: 130, height: 140}} />;
       };
@@ -16,7 +17,6 @@ const PrincipalScreen = ({navigation}) => {
           headerTintColor: '#fff',
         });
       }, [navigation]);
-    
 
   return (
     <View style = {estilos.container}>

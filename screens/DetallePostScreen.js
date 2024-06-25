@@ -1,33 +1,34 @@
-import React, { useContext } from 'react';
-import { View, Image, Button, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { PostContext } from '../context/PostContext';
-import corazon from '../Imagenes/Corazon.png';
-import corazonRelleno from '../Imagenes/CorazonRelleno.png';
-import myImage from '../Imagenes/SegundoLogo.png';
-import { LoginContext } from '../context/LoginContext';
+import React, { useContext } from "react";
+import { View, Image, Button, Text, StyleSheet, ScrollView, TouchableOpacity} from "react-native";
+import { PostContext } from "../context/PostContext";
+import corazon from "../Imagenes/Corazon.png";
+import corazonRelleno from "../Imagenes/CorazonRelleno.png";
+import myImage from "../Imagenes/SegundoLogo.png";
+import { LoginContext } from "../context/LoginContext";
 
 const DetallePostScreen = ({ route, navigation }) => {
   const { post } = route.params;
   const { user } = useContext(LoginContext);
-  const { favoritos, addFavorito, removeFavorito , removePost} = useContext(PostContext);
+  const { favoritos, addFavorito, removeFavorito, removePost } =
+  useContext(PostContext);
 
-  const isFavorito = favoritos.some(fav => fav.id === post.id);
+  const isFavorito = favoritos.some((fav) => fav.id === post.id);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      title: 'Detalles',
+      title: "Detalles",
       headerStyle: {
-        backgroundColor: '#120907',
+        backgroundColor: "#120907",
       },
-      headerTintColor: '#fff',
+      headerTintColor: "#fff",
       headerTitleStyle: {
-        fontWeight: 'bold',
+        fontWeight: "bold",
       },
       headerRight: () => (
         <Button
-          color='#24213a'
+          color="#24213a"
           title="👤"
-          onPress={() => navigation.navigate('PerfilScreen')}
+          onPress={() => navigation.navigate("PerfilScreen")}
         />
       ),
     });
@@ -43,35 +44,49 @@ const DetallePostScreen = ({ route, navigation }) => {
   const handleDeletePost = () => {
     removePost(post.id);
     removeFavorito(post.id);
-    navigation.navigate('Home'); 
+    navigation.navigate("Home");
   };
 
   const MyComponent = () => {
-    return <Image source={myImage} style={{ top: 10 , alignSelf: 'center',width: 40, height: 40}} />;
+    return (
+      <Image
+        source={myImage}
+        style={{ top: 10, alignSelf: "center", width: 40, height: 40 }}
+      />
+    );
   };
 
   return (
     <ScrollView contentContainerStyle={estilos.container}>
-
-      <MyComponent/>
+      <MyComponent />
 
       <Text style={estilos.title}>{post.titulo}</Text>
       <Image
         style={estilos.imagen}
-        resizeMode='contain'
+        resizeMode="contain"
         source={{ uri: post.miniatura }}
       />
 
-<ScrollView style={estilos.descripcionContainer} nestedScrollEnabled={true}>
-  <Text style={estilos.descripcion}>{post.descripcion}</Text>
-</ScrollView>
+      <ScrollView
+        style={estilos.descripcionContainer}
+        nestedScrollEnabled={true}
+      >
+        <Text style={estilos.descripcion}>{post.descripcion}</Text>
+      </ScrollView>
 
       <View style={estilos.buttonContainer}>
         <TouchableOpacity onPress={handleFavoritoPress}>
-          <Image source={isFavorito ? corazonRelleno : corazon} style={isFavorito ? estilos.favoritoRelleno : estilos.favorito} />
+          <Image
+            source={isFavorito ? corazonRelleno : corazon}
+            style={isFavorito ? estilos.favoritoRelleno : estilos.favorito}
+          />
         </TouchableOpacity>
-        {user && user.admin && ( 
-          <Button color='#999be7' title="Eliminar Post" onPress={handleDeletePost} />
+        {user && user.admin && (
+          <Button
+            color="#999be7"
+            title="Eliminar Post"
+            onPress={handleDeletePost}
+          />
         )}
       </View>
     </ScrollView>
@@ -82,23 +97,23 @@ const estilos = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 20,
-    justifyContent: 'center',
-    backgroundColor: '#24213a',
+    justifyContent: "center",
+    backgroundColor: "#24213a",
   },
   title: {
     fontSize: 24,
     marginBottom: 30,
-    textAlign: 'center',
-    color: 'white',
-    textShadowColor: 'black',
+    textAlign: "center",
+    color: "white",
+    textShadowColor: "black",
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 4,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     letterSpacing: 1.2,
     marginTop: 50,
   },
   imagen: {
-    width: '100%',
+    width: "100%",
     height: 250,
     marginBottom: 30,
   },
@@ -107,16 +122,16 @@ const estilos = StyleSheet.create({
     marginBottom: 10,
   },
   descripcion: {
-    color: 'white',
+    color: "white",
     borderWidth: 2,
-    borderColor: '#353535',
+    borderColor: "#353535",
     borderRadius: 5,
     padding: 10,
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginTop: 60,
   },
   favorito: {

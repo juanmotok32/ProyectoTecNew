@@ -4,15 +4,9 @@ import corazon from '../Imagenes/Corazon.png';
 import corazonRelleno from '../Imagenes/CorazonRelleno.png';
 
 
-
-
-
-
 const PostCard = ({ titulo, miniatura, onPress, isFavorito }) => {
 
-
     const tituloAcortado = titulo.length > 23 ? titulo.substring(0, 27) + '...' : titulo;
-
 
     return (
         <ImageBackground source={{ uri: miniatura }} style={estilos.card}>
@@ -24,12 +18,9 @@ const PostCard = ({ titulo, miniatura, onPress, isFavorito }) => {
             <TouchableOpacity onPress={onPress} style={estilos.hearth}>
                 <Image source={isFavorito ? corazonRelleno : corazon} style={isFavorito ? estilos.favoritoRelleno : estilos.favorito} />
             </TouchableOpacity>
-
-
         </ImageBackground>
     );
 };
-
 
 const estilos = StyleSheet.create({
     imagen: {
@@ -49,8 +40,6 @@ const estilos = StyleSheet.create({
         fontSize: 14,
         color: '#333',
         textAlignVertical: 'bottom'
-
-
     },
     title: {
         fontSize: 28,
@@ -93,10 +82,7 @@ const estilos = StyleSheet.create({
         top: 40,
         right: 40,
     },
-
-
 });
-
 
 export default PostCard;
 

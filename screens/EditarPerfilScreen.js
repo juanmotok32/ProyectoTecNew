@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, StyleSheet, Text, TextInput, Button, Image, ActivityIndicator, ScrollView, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TextInput, Button, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { LoginContext } from '../context/LoginContext';
 import myImage from '../Imagenes/SegundoLogo.png';
 import * as ImagePicker from 'expo-image-picker';

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button, TextInput, Alert, Image, ScrollView } f
 import myImage from '../Imagenes/LogoRegister.png';
 import { LoginContext } from '../context/LoginContext';
 
+
 const RegisterScreen = ({ navigation }) => {
   const { register } = useContext(LoginContext);
 
@@ -10,7 +11,6 @@ const RegisterScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -38,7 +38,6 @@ const RegisterScreen = ({ navigation }) => {
   }
 
   return (
-    
     <View style={estilos.container}>
         <ScrollView>
 
@@ -96,7 +95,6 @@ const RegisterScreen = ({ navigation }) => {
       </View>
       </ScrollView>
     </View>
-    
   )
 }
 
