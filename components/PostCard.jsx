@@ -11,7 +11,7 @@ import corazonRelleno from '../Imagenes/CorazonRelleno.png';
 const PostCard = ({ titulo, miniatura, onPress, isFavorito }) => {
 
 
-    const tituloAcortado = titulo.length > 14 ? titulo.substring(0, 17) + '...' : titulo;
+    const tituloAcortado = titulo.length > 23 ? titulo.substring(0, 27) + '...' : titulo;
 
 
     return (

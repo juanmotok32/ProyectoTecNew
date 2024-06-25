@@ -193,9 +193,6 @@ const estilos = StyleSheet.create({
         marginBottom: 20,
         flex: 1,
     },
-    inputs: {
-        color: 'white'
-    },
     contenedorImagen: {
         flex: 1,
         justifyContent: 'center',
