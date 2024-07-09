@@ -67,16 +67,9 @@ const DetallePostScreen = ({ route, navigation }) => {
         source={{ uri: post.miniatura }}
       />
 
-<<<<<<< HEAD
-      <ScrollView
-        style={estilos.descripcionContainer}
-        nestedScrollEnabled={true}
-      >
-=======
-      <ScrollView style={estilos.descripcionContainer} nestedScrollEnabled={true}>
->>>>>>> 2253b33d3ab318aa255b3c73f0a226a15a52364e
-        <Text style={estilos.descripcion}>{post.descripcion}</Text>
-      </ScrollView>
+<ScrollView style={estilos.descripcionContainer} nestedScrollEnabled={true}>
+  <Text style={estilos.descripcion}>{post.descripcion}</Text>
+</ScrollView>
 
       <View style={estilos.buttonContainer}>
         <TouchableOpacity onPress={handleFavoritoPress}>
