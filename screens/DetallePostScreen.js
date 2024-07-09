@@ -62,7 +62,7 @@ const DetallePostScreen = ({ route, navigation }) => {
         source={{ uri: post.miniatura }}
       />
 
-      <ScrollView style={estilos.descripcionContainer}>
+      <ScrollView style={estilos.descripcionContainer} nestedScrollEnabled={true}>
         <Text style={estilos.descripcion}>{post.descripcion}</Text>
       </ScrollView>
 
