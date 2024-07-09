@@ -4,6 +4,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import { PostContext } from '../context/PostContext';
 import myImage from '../Imagenes/SegundoLogo.png';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'; 
+import { storage } from '../firebase/firebase';
 
 const AgregarPostScreen = () => {
   const { addPost } = useContext(PostContext);
@@ -17,7 +19,7 @@ const AgregarPostScreen = () => {
     return <Image source={myImage} style={{ top: -20, alignSelf: 'center', width: 40, height: 40 }} />;
   };
 
-  const handleSubmit = () => {
+  const  handleSubmit = async () => {
     if (!titulo || titulo.length > 30) {
       Alert.alert('Error', 'El título no puede ser nulo y debe tener menos de 30 caracteres.');
       return;
@@ -34,9 +36,21 @@ const AgregarPostScreen = () => {
       descripcion,
       miniatura
     };
-    addPost(newPost);
+    const url = await subirImagen(newPost);
+    newPost.miniatura = url;
+    await addPost(newPost);
     navigation.goBack();
   };
+
+const subirImagen = async (post) => {
+const response = await fetch(post.miniatura);
+const image = await response.blob();
+const storageRef = ref(storage, 'imagenes/' + post.id);
+await uploadBytes(storageRef, image);
+const url = await getDownloadURL(storageRef);
+console.log('URL de la imagen subida:', url);
+return url;
+};
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -113,7 +127,7 @@ const AgregarPostScreen = () => {
         <Image source={{ uri: miniatura }} style={estilos.imagen} />
       )}
       <View style={estilos.buttonPostear}>
-        <Button color='#999be7' title="POSTEAR" onPress={handleSubmit} />
+        <Button color='#999be7' title="POSTEAR" onPress= {handleSubmit} />
       </View>
     </ScrollView>
   );
