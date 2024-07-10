@@ -40,10 +40,6 @@ const HomeScreen = ({ navigation }) => {
         return <Image source={myImage} style={{ top: -10, alignSelf: 'center', width: 40, height: 40 }} />;
     };
 
-    const handleLogout = () => {
-        logout();
-      }
-
     React.useLayoutEffect(() => {
         navigation.setOptions({
             title: 'TecNews',
