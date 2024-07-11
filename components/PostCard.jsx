@@ -44,7 +44,9 @@ const estilos = StyleSheet.create({
     },
     title: {
         fontSize: 28,
-        textShadow: '2px 2px 4px black',
+        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+        textShadowOffset: { width: -1, height: 1 },
+        textShadowRadius: 10,
         fontWeight: 'bold',
         color: 'white',
         padding: 10,
@@ -54,11 +56,12 @@ const estilos = StyleSheet.create({
         letterSpacing: 1.1,
         margin: 10,
     },
+
     card: {
         justifyContent: 'center',
         borderWidth: 1,
         borderColor: 'black',
-        borderRadius: 50,
+        borderRadius: 20,
         marginBottom: 10,
         width: 340,
         height: 320,

@@ -19,7 +19,7 @@ function AppNavigation() {
   const { isLogged } = useContext(LoginContext);
 
   if (isLogged === "checking") {
-    return null; // Puedes mostrar un spinner aquí
+    return null;
   }
 
   return (
