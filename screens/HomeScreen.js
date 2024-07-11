@@ -4,7 +4,6 @@ import PostCard from '../components/PostCard.jsx';
 import { PostContext } from '../context/PostContext.js';
 import myImage from '../Imagenes/SegundoLogo.png';
 import { LoginContext } from '../context/LoginContext.js';
-import * as ImagePicker from 'expo-image-picker';
 
 const HomeScreen = ({ navigation }) => {
     const { posteos, favoritos, addFavorito, removeFavorito, fetchPosts } = useContext(PostContext);

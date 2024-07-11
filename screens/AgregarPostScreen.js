@@ -4,7 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import { PostContext } from '../context/PostContext';
 import myImage from '../Imagenes/SegundoLogo.png';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'; 
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'; 
 import { storage } from '../firebase/firebase';
 
 const AgregarPostScreen = () => {

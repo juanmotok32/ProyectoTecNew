@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, FlatList, TouchableOpacity, Button,Image} from 'react-native'
+import { View, StyleSheet, FlatList, TouchableOpacity, Button, Image} from 'react-native'
 import { PostContext } from '../context/PostContext.js';
 import PostCard from '../components/PostCard.jsx';
 import myImage from '../Imagenes/SegundoLogo.png';
